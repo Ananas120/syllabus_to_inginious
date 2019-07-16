@@ -1,0 +1,232 @@
+accessible: true
+author: Tanguy De Bels
+context: ".. raw:: html\n\n   <script defer>\n\n   bodyHeight = 0;\n   function postSize()\
+  \ {\n       if (document.body.scrollHeight != bodyHeight) {\n           bodyHeight\
+  \ = document.body.scrollHeight;\n           window.parent.postMessage({height: document.body.scrollHeight},\
+  \ \"*\");\n       }\n   };\n   var target = document.querySelector('body');\n\n\
+  \   var observer = new MutationObserver(postSize);\n\n   var config = { attributes:\
+  \ true, subtree: true }\n\n   observer.observe(target, config);\n   $(document).ready(function(){\n\
+  \       setTimeout(postSize, 0);\n   });\n   </script>"
+environment: mcq
+evaluate: best
+groups: false
+input_random: '0'
+limits: {memory: '100', output: '2', time: '30'}
+name: Questions à choix multiples
+network_grading: false
+order: 2
+problems:
+- accessible: true
+  author: Tanguy De Bels
+  choices:
+  - {feedback: '', text: "      .. code-block:: console\n         man -k intro\n",
+    valid: true}
+  - {feedback: '         Cette commande permet d''obtenir la page dénommée ``intro``
+      mais uniquement dans la première section du manuel. Elle ne liste pas toutes
+      les pages dont le résumé contient le mot clé ``intro``.
+
+      ', text: "   .. negative::\n      .. code-block:: console\n         man intro\n",
+    valid: false}
+  context: ".. raw:: html\n\n   <script defer>\n\n   bodyHeight = 0;\n   function\
+    \ postSize() {\n       if (document.body.scrollHeight != bodyHeight) {\n     \
+    \      bodyHeight = document.body.scrollHeight;\n           window.parent.postMessage({height:\
+    \ document.body.scrollHeight}, \"*\");\n       }\n   };\n   var target = document.querySelector('body');\n\
+    \n   var observer = new MutationObserver(postSize);\n\n   var config = { attributes:\
+    \ true, subtree: true }\n\n   observer.observe(target, config);\n   $(document).ready(function(){\n\
+    \       setTimeout(postSize, 0);\n   });\n   </script>"
+  environment: mcq
+  evaluate: best
+  groups: false
+  header: '   La commande `man(1)`_ permet de lire les pages de manuel d''un système
+    Unix. Elle est particulièrement utile pour vérifier les arguments à donner à un
+    programme en ligne de commande ou pour savoir comment utiliser certaines fonctions
+    de la librairie standard ou appels systèmes. Comment faut-il appeler la commande
+    `man(1)`_ pour lister toutes les pages de manuel dont le résumé contient le mot
+    ''''intro'''' ?'
+  input_random: '0'
+  limits: {memory: '100', output: '2', time: '30'}
+  name: Question 1. Commande `man(1)`_
+  network_grading: false
+  order: 2
+  problems: null
+  stored_submissions: 0
+  submission_limit: {amount: -1, period: -1}
+  tags: {}
+  weight: 1.0
+- accessible: true
+  author: Tanguy De Bels
+  choices:
+  - {feedback: '', text: "        - Dans un répertoire, la commande ``ls -a`` sans\
+      \ argument permet d'afficher la liste de tous les fichiers et répertoires présents\n\
+      \        - La commande ``ls -r`` permet de lister les répertoires présents dans\
+      \ le répertoire courant en inversant l'ordre\n        - La commande ``ls -l``\
+      \ permet d'obtenir la liste détaillée du contenu du répertoire courant avec\
+      \ toutes les informations relatives à chaque fichier et répertoire non cachés\n",
+    valid: true}
+  - {feedback: '', text: "        - Dans un répertoire, la commande ``ls -a`` sans\
+      \ argument permet d'afficher la liste de tous les fichiers et répertoires présents\n\
+      \        - La commande ``ls -R`` permet de lister de façon récursive le contenu\
+      \ du répertoire courant et de ses sous-répertoires\n        - La commande ``ls\
+      \ -l`` permet d'obtenir la liste détaillée du contenu du répertoire courant\
+      \ avec toutes les informations relatives à chaque fichier et répertoire non\
+      \ cachés\n", valid: true}
+  - {feedback: '', text: "   .. negative::\n        - Dans un répertoire, la commande\
+      \ ``ls *`` permet d'afficher la liste de tous les fichiers et répertoires présents\n\
+      \        - La commande ``ls -f`` permet de lister le contenu du répertoire courant\
+      \ sans trier les fichiers par nom\n        - La commande ``ls -l`` permet d'obtenir\
+      \ la liste détaillée du contenu du répertoire courant avec toutes les informations\
+      \ relatives à chaque fichier et répertoire\n", valid: false}
+  context: ".. raw:: html\n\n   <script defer>\n\n   bodyHeight = 0;\n   function\
+    \ postSize() {\n       if (document.body.scrollHeight != bodyHeight) {\n     \
+    \      bodyHeight = document.body.scrollHeight;\n           window.parent.postMessage({height:\
+    \ document.body.scrollHeight}, \"*\");\n       }\n   };\n   var target = document.querySelector('body');\n\
+    \n   var observer = new MutationObserver(postSize);\n\n   var config = { attributes:\
+    \ true, subtree: true }\n\n   observer.observe(target, config);\n   $(document).ready(function(){\n\
+    \       setTimeout(postSize, 0);\n   });\n   </script>"
+  environment: mcq
+  evaluate: best
+  groups: false
+  header: '   La commande `ls(1)`_ permet de lister le contenu d''un répertoire. Elle
+    supporte de nombreux paramètres. Parmi les groupes d''affirmation suivants, un
+    seul est valide, lequel ?'
+  input_random: '0'
+  limits: {memory: '100', output: '2', time: '30'}
+  name: Question 2. Commande `ls(1)`_
+  network_grading: false
+  order: 2
+  problems: null
+  stored_submissions: 0
+  submission_limit: {amount: -1, period: -1}
+  tags: {}
+  weight: 1.0
+- accessible: true
+  author: Tanguy De Bels
+  choices:
+  - {feedback: '', text: "      .. code-block:: c\n         #include <stdio.h>\n \
+      \        int main(int argc, const char *argv[]) {\n           printf(\"Hello,\
+      \ world\\n\");\n         }\n", valid: true}
+  - {feedback: '', text: "      .. code-block:: c\n         #include <stdio.h>\n \
+      \        int main(int argc, const char *argv[]) {\n           printf(\"Hello,\"\
+      );\n           printf(\" world\\n\");\n         }\n", valid: true}
+  - {feedback: '', text: "   .. negative::\n      .. code-block:: c\n         #include\
+      \ <stdio.h>\n         void main(int argc, const char *argv[]) {\n          \
+      \ printf(\"Hello, world\\n\");\n         }\n", valid: false}
+  - {feedback: '', text: "   .. negative::\n      .. code-block:: c\n         int\
+      \ main(int argc, const char *argv[]) {\n           printf(\"Hello, world\\n\"\
+      );\n         }\n", valid: false}
+  - {feedback: '', text: "   .. negative::\n      .. code-block:: c\n         #include\
+      \ <stdlib.h>\n         int main() {\n           printf(\"Hello, world\\n\");\n\
+      \         }\n", valid: false}
+  context: ".. raw:: html\n\n   <script defer>\n\n   bodyHeight = 0;\n   function\
+    \ postSize() {\n       if (document.body.scrollHeight != bodyHeight) {\n     \
+    \      bodyHeight = document.body.scrollHeight;\n           window.parent.postMessage({height:\
+    \ document.body.scrollHeight}, \"*\");\n       }\n   };\n   var target = document.querySelector('body');\n\
+    \n   var observer = new MutationObserver(postSize);\n\n   var config = { attributes:\
+    \ true, subtree: true }\n\n   observer.observe(target, config);\n   $(document).ready(function(){\n\
+    \       setTimeout(postSize, 0);\n   });\n   </script>"
+  environment: mcq
+  evaluate: best
+  groups: false
+  header: '   Depuis la publication du livre de référence [KernighanRitchie1998],
+    le premier programme écrit en langage C affiche à l''écran la chaîne de caractères
+    "Hello, world". Parmi les codes source ci-dessous, un seul est entièrement correct.
+    Lequel ?'
+  input_random: '0'
+  limits: {memory: '100', output: '2', time: '30'}
+  name: Question 3. Premier programme en langage C
+  network_grading: false
+  order: 2
+  problems: null
+  stored_submissions: 0
+  submission_limit: {amount: -1, period: -1}
+  tags: {}
+  weight: 1.0
+- accessible: true
+  author: Tanguy De Bels
+  choices:
+  - {feedback: '', text: "      .. code-block:: c\n         #include <stdio.h>\n \
+      \        int main(int argc, const char *argv[]) {\n           int a = 1252;\n\
+      \           printf(\"SINF%d\\n\", a);\n         }\n", valid: true}
+  - {feedback: '', text: "      .. code-block:: c\n         #include <stdio.h>\n \
+      \        int main(int argc, const char *argv[]) {\n          int a = 1252;\n\
+      \          printf(\"SINF\");\n          printf(\"%d\\n\", a);\n         }\n",
+    valid: true}
+  - {feedback: '', text: "   .. negative::\n      .. code-block:: none\n         #include\
+      \ <stdio.h>\n         int main(int argc, const char *argv[]) {\n           int\
+      \ a = 1252;\n           printf(\"SINF%a\\n\", a);\n         }\n", valid: false}
+  - {feedback: '', text: "   .. negative::\n      .. code-block:: none\n         #include\
+      \ <stdio.h>\n         int main(int argc, const char *argv[]) {\n           int\
+      \ a = 1252;\n           printf(SINF);\n           printf(%d\\n, a);\n      \
+      \   }\n", valid: false}
+  context: ".. raw:: html\n\n   <script defer>\n\n   bodyHeight = 0;\n   function\
+    \ postSize() {\n       if (document.body.scrollHeight != bodyHeight) {\n     \
+    \      bodyHeight = document.body.scrollHeight;\n           window.parent.postMessage({height:\
+    \ document.body.scrollHeight}, \"*\");\n       }\n   };\n   var target = document.querySelector('body');\n\
+    \n   var observer = new MutationObserver(postSize);\n\n   var config = { attributes:\
+    \ true, subtree: true }\n\n   observer.observe(target, config);\n   $(document).ready(function(){\n\
+    \       setTimeout(postSize, 0);\n   });\n   </script>"
+  environment: mcq
+  evaluate: best
+  groups: false
+  header: '   Votre deuxième programme en langage C doit afficher à l''écran la chaîne
+    de caractères `SINF1252`. Lequel parmi les programmes ci-dessous affiche-t-il
+    correctement cette chaîne de caractères ?'
+  input_random: '0'
+  limits: {memory: '100', output: '2', time: '30'}
+  name: Question 4. Deuxième programme en langage C
+  network_grading: false
+  order: 2
+  problems: null
+  stored_submissions: 0
+  submission_limit: {amount: -1, period: -1}
+  tags: {}
+  weight: 1.0
+- accessible: true
+  author: Tanguy De Bels
+  choices:
+  - {feedback: '', text: "      - Lors de l'exécution de la fonction ``main``, ``argc``\
+      \ est initialisé au nombre d'arguments passés au programme (y compris le nom\
+      \ de l'exécutable lui-même).\n      - Lors de l'exécution de la fonction ``main``,\
+      \ le tableau ``argv[]`` contient dans ``argv[0]`` le nom du programme, dans\
+      \ ``argv[1]`` le premier argument, etc.\n      - La fonction ``atoi`` permet\
+      \ de convertir une chaîne de caractères en l'entier équivalent.\n", valid: true}
+  - {feedback: '', text: "   .. negative::\n        - Lors de l'exécution de la fonction\
+      \ ``main``, ``argc`` est initialisé à zéro.\n        - Lors de l'exécution de\
+      \ la fonction ``main``, le tableau ``argv[]`` contient dans ``argv[0]`` le premier\
+      \ argument, dans ``argv[1]`` le second argument, etc.\n        - La fonction\
+      \ ``atoi`` calcule la taille de son argument.\n", valid: false}
+  - {feedback: '', text: "   .. negative::\n        - Lors de l'exécution de la fonction\
+      \ ``main``, ``argc`` est le nombre maximum d'arguments que l'on peut lui passer.\n\
+      \        - Lors de l'exécution de la fonction ``main``, le tableau ``argv[]``\
+      \ contient dans ``argv[0]`` le premier argument, dans ``argv[1]`` le second\
+      \ argument, etc.\n        - La fonction ``atoi`` doit prendre comme argument\
+      \ une chaîne de caractères qui ne contient que des chiffres.\n", valid: false}
+  context: ".. raw:: html\n\n   <script defer>\n\n   bodyHeight = 0;\n   function\
+    \ postSize() {\n       if (document.body.scrollHeight != bodyHeight) {\n     \
+    \      bodyHeight = document.body.scrollHeight;\n           window.parent.postMessage({height:\
+    \ document.body.scrollHeight}, \"*\");\n       }\n   };\n   var target = document.querySelector('body');\n\
+    \n   var observer = new MutationObserver(postSize);\n\n   var config = { attributes:\
+    \ true, subtree: true }\n\n   observer.observe(target, config);\n   $(document).ready(function(){\n\
+    \       setTimeout(postSize, 0);\n   });\n   </script>"
+  environment: mcq
+  evaluate: best
+  groups: false
+  header: '   Considérons le programme C ci-dessous qui permet de manipuler les arguments
+    passés en ligne de commande.      #include <stdio.h>      #include <stdlib.h>      int
+    main(int argc, const char *argv[])      {        int a = atoi(argv[1]);        printf("%d\n",
+    a);      }   Parmi les groupes d''affirmations ci-dessous, un seul ne contient
+    que des affirmations qui sont toutes vraies. Lequel ?'
+  input_random: '0'
+  limits: {memory: '100', output: '2', time: '30'}
+  name: Question 5. Arguments passés à un programme C
+  network_grading: false
+  order: 2
+  problems: null
+  stored_submissions: 0
+  submission_limit: {amount: -1, period: -1}
+  tags: {}
+  weight: 1.0
+stored_submissions: 0
+submission_limit: {amount: -1, period: -1}
+tags: {}
+weight: 1.0

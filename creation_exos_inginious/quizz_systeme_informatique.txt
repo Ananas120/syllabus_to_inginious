@@ -1,0 +1,1684 @@
+
+
+Q| 
+La commande `man(1)` permet de lire les pages de manuel d'un système Unix. Elle est particulièrement utile pour vérifier les arguments à donner à un programme en ligne de commande ou pour savoir comment utiliser certaines fonctions de la librairie standard ou appels systèmes. Comment faut-il appeler la commande `man(1)` pour lister toutes les pages de manuel dont le résumé contient le mot ''intro'' ?
+
+C| 
+
+
+
+   man -k intro
+
+
+|V
+C| 
+
+
+
+   man intro
+
+
+|F
+C| 
+
+
+
+   man -k *intro*
+
+
+|F
+
+Q| 
+Considérons le programme C ci-dessous qui permet de manipuler les arguments passés en ligne de commande.
+
+
+
+
+   #include <stdio.h>
+   #include <stdlib.h>
+   int main(int argc, const char *argv[])
+   {
+     int a = atoi(argv[1]);
+     printf("%d\n", a);
+   }
+
+
+
+
+
+C| 
+
+- Lors de l'exécution de la fonction ``main``, ``argc`` est initialisé au nombre d'arguments passés au programme (y compris le nom de l'exécutable lui-même).
+- Lors de l'exécution de la fonction ``main``, le tableau ``argv[]`` contient dans ``argv[0]`` le nom du programme, dans ``argv[1]`` le premier argument, etc.
+- La fonction ``atoi`` permet de convertir une chaîne de caractères en l'entier équivalent.
+
+|V
+C| 
+
+
+- Lors de l'exécution de la fonction ``main``, ``argc`` est initialisé à zéro.
+- Lors de l'exécution de la fonction ``main``, le tableau ``argv[]`` contient dans ``argv[0]`` le premier argument, dans ``argv[1]`` le second argument, etc.
+- La fonction ``atoi`` calcule la taille de son argument.
+
+|F
+C| 
+
+- Lors de l'exécution de la fonction ``main``, ``argc`` est le nombre maximum d'arguments que l'on peut lui passer.
+- Lors de l'exécution de la fonction ``main``, le tableau ``argv[]`` contient dans ``argv[0]`` le premier argument, dans ``argv[1]`` le second argument, etc.
+- La fonction ``atoi`` doit prendre comme argument une chaîne de caractères qui ne contient que des chiffres.
+
+|F
+C| 
+
+- Lors de l'exécution de la fonction ``main``, le tableau ``argv[]`` contient dans ``argv[0]`` le premier argument, dans ``argv[1]`` le second argument, etc.
+- La fonction ``atoi`` permet de convertir une chaîne de caractères en l'entier équivalent.
+
+|F
+
+
+
+
+
+Q| 
+Parmi les expressions suivantes, une seule permet de calculer ``x*7`` lorsque ``x`` est un nombre entier. Laquelle ?
+
+
+C| 
+
+
+
+   (x<<3)-x
+
+
+
+|V
+C| 
+
+
+
+
+   (x>>3)-x
+
+
+
+|F
+C| 
+
+
+
+   (x<<3)+x
+
+
+|F
+C| 
+
+
+
+   (x<<7)
+
+
+
+|F
+C| 
+
+
+
+   (x>>7)
+
+
+|F
+
+Q| 
+Dans un programme de manipulation de fractions, on définit la structure suivante pour représenter une fraction entière :
+
+
+
+   /*
+   * augmente la fraction passé en argument de l'entier n et place
+   * la somme calculée dans la fraction
+   * Exemples
+   *  Si f vaut 1/3, alors l'application de la fonction avec f et 2 comme
+   *  arguments a comme résultat de stocker la valeur 7/3 dans f
+   *  Si f vaut 2/1, alors l'application de la fonction avec f et 1 comme
+   *  arguments a comme résultat de stocker la valeur 3/1 dans f
+   */
+
+
+   Laquelle des signatures ci-dessous peut-elle être utilisée pour effectuer cette opération et modifier la fraction passé en argument ?
+
+
+
+C| 
+
+
+
+
+
+   void scale(struct *fract_t f, int s);
+   // appel à la fonction :
+   // scale(&f,3);
+
+
+|V
+C| 
+
+
+
+   void scale(struct fract_t f, int s);
+   // appel à la fonction :
+   // scale(f,3);
+
+
+|F
+C| 
+
+
+
+   void scale(int num, int den, int s);
+   // appel à la fonction :
+   // scale(f.num, f.denum,3);
+
+
+
+
+
+|F
+
+
+
+Q| 
+Lorsque l'on écrit un programme C, il est préférable d'éviter d'avoir deux variables qui ont le même nom et peuvent être utilisées dans une fonction. Un étudiant a écrit le programme ci-dessous :
+
+
+
+   #include <stdio.h>
+   int i = 1;
+   int main(int argc, char * argv[])
+   {
+     int k;
+     printf("A:%d\n", i);
+     for(k=0; k<1; k++)
+     {
+       int i = 2, j = 1252;
+       printf("B:%d %d\n", i, j);
+       {
+         int i = 0;
+         printf("C:%d %d\n", i, j);
+       }
+       printf("D:%d\n", i);
+     }
+     return 0;
+   }
+
+
+   Lors de son exécution, ce programme affiche :
+
+
+C| 
+
+
+
+
+   A:1
+   B:2 1252
+   C:0 1252
+   D:2
+
+
+
+|V
+C| 
+
+Le programme ne se compile pas, il est interdit de redéfinir la variable globale ``i``.
+
+|F
+C| 
+
+
+
+   A:1
+   B:1 1252
+   C:1 1252
+   D:1
+
+
+|F
+C| 
+
+
+
+   A:1
+   B:2 1252
+   C:2 1252
+   D:2
+
+
+|F
+C| 
+
+
+
+   A:1
+   B:2 1252
+   C:0 1252
+   D:0
+
+
+
+|F
+
+Q| 
+L'extrait ci-dessous provient d'un programme écrit par un étudiant.
+
+
+
+   #include <stdio.h>
+   int i = 1252;
+   void f(int i) {
+     // code non fourni
+   }
+   void g(char* c) {
+     // code non fourni
+   }
+   int main(int argc, char * argv[])
+   {
+     f(argc);
+     g(argv[0]);
+   }
+
+
+   Parmi les affirmations suivantes, un seul groupe est correct. Lequel ?
+
+
+C| 
+
+- La fonction ``g`` peut accéder à la variable globale ``i`` et modifier sa valeur
+- La fonction ``g`` ne peut lire la valeur de ``argc``
+- La fonction ``f`` ne peut modifier la valeur de la variable globale ``i``
+
+|V
+C| 
+
+
+- La fonction ``g`` peut lire la variable globale ``i`` mais pas modifier sa valeur
+- La fonction ``g`` ne peut lire la valeur de ``argc``
+- La fonction ``f`` peut modifier la valeur de la variable globale ``i``
+
+|F
+C| 
+
+- La fonction ``f`` peut lire la variable globale ``i`` mais pas modifier sa valeur
+- La fonction ``g`` peut lire la valeur de ``argc``
+- La fonction ``f`` peut modifier la valeur de la variable globale ``i``
+
+|F
+C| 
+
+- La fonction ``f`` peut lire la variable globale ``i`` et modifier sa valeur
+- La fonction ``g`` ne peut lire la valeur de ``argc``
+- La fonction ``f`` ne peut modifier la valeur de la variable globale ``i``
+
+|F
+
+Q| 
+Cette question porte sur les fonctions `malloc(3)` et `free(3)` qui sont importantes pour la manipulation de la mémoire sur le tas.
+
+
+Parmi les groupes d'affirmation suivants, un seul est correct. Lequel ?
+
+C| 
+
+
+- la fonction `malloc(3)` retourne un pointeur de type ``void *``
+- la fonction `free(3)` prend comme argument un pointeur de type ``void *`` qui a été précédemment alloué par la fonction `malloc(3)`
+- si l'appel à `calloc(3)` a retourné un pointeur différent de ``NULL``, alors la zone mémoire demandée a été allouée et est initialisée à zéro
+- une implémentation possible (non efficace) de `realloc(3)` est 
+
+
+
+   void *realloc(void *ptr, size_t len)
+   {
+     void *r;
+     r = malloc(len);
+     if(r!=NULL)
+     {
+       memcpy(r, ptr, len);
+       free(ptr);
+     }
+     return r;
+   }
+
+
+
+
+|V
+C| 
+
+
+- la fonction `malloc(3)` retourne un pointeur de type ``void *``
+- la fonction `free(3)` prend comme argument n'importe quel type de pointeur
+- si l'appel à `malloc(3)` a retourné un pointeur différent de ``NULL``, alors la zone mémoire demandée a été allouée mais n'est pas initialisée à zéro
+- une implémentation possible (non efficace) de `realloc(3)` est
+
+
+
+   void *realloc(void *ptr, size_t len)
+   {
+     void *r;
+     r = malloc(len);
+     memcpy(r, ptr, len);
+     return r;
+   }
+
+
+
+|F
+C| 
+
+- la fonction `calloc(3)` retourne un pointeur de type ``void *``
+- la fonction `free(3)` prend comme argument un pointeur de type ``void *`` qui a été précédemment alloué par la fonction `malloc(3)`
+- si l'appel à `malloc(3)` a retourné un pointeur différent de ``NULL``, alors la zone mémoire demandée a été allouée et est initialisée
+- une implémentation possible (non efficace) de `realloc(3)` est
+
+
+
+   void *realloc(void *ptr, size_t len)
+   {
+     return malloc(len);
+   }
+
+
+
+|F
+C| 
+
+- la fonction `calloc(3)` retourne un pointeur de type ``void *``
+- la fonction `free(3)` prend comme argument un pointeur de type ``void *`` qui a été précédemment alloué par la fonction `malloc(3)`
+- si l'appel à `malloc(3)` a retourné un pointeur différent de ``NULL``, alors la zone mémoire demandée a été allouée et est initialisée
+- une implémentation possible (non efficace) de `realloc(3)` est
+
+
+
+   void *realloc(void *ptr, size_t len)
+   {
+     void *r;
+     r = malloc(len);
+     if(r)
+     {
+       return r;
+     }
+     else
+     {
+       return NULL;
+     }
+   }
+
+
+
+
+
+|F
+
+
+
+Q| 
+Pour comprendre le fonctionnement des pointeurs en C, il est parfois utile de se ramener à la traduction en assembleur de fragments de code C. Considérons les lignes suivantes :
+
+
+
+   int a=1252;
+   int * ptr;
+
+   int main(int argc, const char *argv[]) {
+     ptr=&a;
+   }
+
+
+
+
+C| 
+
+
+
+
+   leal    a, %eax
+   movl    %eax, ptr
+
+
+|V
+C| 
+
+
+
+
+   movl    a, %eax
+   movl    ptr, %ecx
+   movl    %eax, (%ecx)
+
+
+|F
+C| 
+
+
+
+   movl    a, %eax
+   movl    %eax, ptr
+
+
+|F
+C| 
+
+
+
+
+   pushl   %eax
+   leal    (%esp), %eax
+   movl    a, %ecx
+   movl    %ecx, (%esp)
+   movl    %eax, ptr
+   popl    %eax
+
+
+|F
+C| 
+
+
+
+
+   leal    a, %eax
+   addl    $4, %eax
+   movl    %eax, ptr
+
+
+|F
+
+
+
+Q| 
+Les pointeurs peuvent être utilisés pour accéder à des tableaux. Considérons un fragment de code C utilisant un tableau d'entiers à une dimension :
+
+
+
+   int a[]={2,4,3,4,8};
+   int * ptr;
+
+   printf("%d %d %d %d\n",a[0],a[1],a[2],a[a[3]]);
+
+
+
+
+
+Après exécution de ``ptr=&(a[0]);``, une seule des instructions ci-dessous affiche la même séquence de chiffres. Laquelle ?
+
+C| 
+
+
+
+
+   printf("%d %d %d %d\n",*ptr,*(ptr+1),*(ptr+2),*(ptr+*(ptr+3)));
+
+
+|V
+C| 
+
+
+
+   printf("%d %d %d %d\n",*ptr,*ptr+1,*ptr+2,*(ptr+*(ptr+3)));
+
+
+|F
+C| 
+
+
+
+   printf("%d %d %d %d\n",*ptr,*(ptr++),(*ptr++),*(ptr+*(ptr++)));
+
+
+|F
+C| 
+
+
+
+   printf("%d %d %d %d\n",*ptr,*(ptr+0),*(ptr+1),*ptr+*(ptr+2));
+
+
+|F
+C| 
+
+
+
+   printf("%d %d %d %d\n",*ptr,*ptr+1,(*ptr+1),*(ptr+(ptr+3)));
+
+
+|F
+
+Q| 
+Un programme C doit souvent pouvoir manipuler les arguments qui lui sont passés. Les variables ``argc`` et ``argv`` qui sont passées à la fonction ``main`` permettent d'accéder à ces arguments. Le fragment de programme ci-dessous affiche sur la sortie standard ses différents arguments.
+
+
+
+   while(i<argc) {
+     printf("%d %p %s\n",i,&(argv[i]),argv[i]);
+     i++;
+   }
+
+
+
+
+
+   #./a.out a b cd
+   0 0x7fff5fbff788 ./a.out
+   1 0x7fff5fbff790 a
+   2 0x7fff5fbff798 b
+   3 0x7fff5fbff7a0 cd
+
+
+   A côté de la notation ``argv[i]``, il est aussi possible d'accéder à ``argv`` en utilisant des pointeurs. Parmi les fragments de programme ci-dessous, un seul est correct et affiche le même résultat que ci-dessus.
+
+
+C| 
+
+
+
+
+   char **ptr;
+   int i=0;
+   ptr=argv;
+   while(i<argc) {
+     printf("%d %p %s\n",i,&(*ptr),*ptr);
+     i++;
+     ptr++;
+   }
+
+
+
+|V
+C| 
+
+
+
+   char **ptr;
+   int i=0;
+   ptr=argv;
+   while(i<argc) {
+     printf("%d %p %s\n",i,&(ptr),*ptr);
+     i++;
+     ptr++;
+   }
+
+
+
+|F
+C| 
+
+
+
+   char *ptr;
+   int i=0;
+   ptr=*argv;
+   while(i<argc) {
+     printf("%d %p %s\n",i,&(ptr),*ptr);
+     i++;
+     ptr++;
+   }
+
+
+|F
+C| 
+
+
+
+   int i=0;
+   while(i<argc) {
+     printf("%d %p %s\n",i,&(argv+i),*(argv+i));
+     i++;
+   }
+
+
+|F
+C| 
+
+
+
+   int i=0;
+   while(i<argc) {
+     printf("%d %p %s\n",i,&(*(argv+i)),(argv+i));
+     i++;
+   }
+
+
+
+|F
+
+Q| 
+En C, il est possible d'accéder aux données stockées dans un tableau à deux dimensions via la notation ``a[i][j]`` mais aussi en utilisant des pointeurs. Considérons le fragment de code ci-dessous :
+
+
+
+   int m[3][4]= { { 1, 2, 3, 4} ,
+   		{ 5, 6, 7, 8} ,
+   		{ 9, 10, 11, 12} };
+
+   printf("%p %d %d %d\n",m, m[1][2], m[0][5], m[2][2]);
+
+
+
+
+
+
+   0x7fff5fbff750 7 6 11
+
+
+   Parmi les fragments de programme ci-dessous, un seul utilisant la notation avec les pointeurs est correct et affiche la même sortie. Lequel ?
+
+
+C| 
+
+
+
+
+   int *ptr;
+
+   ptr=&(m[0][0]);
+   printf("%p %d %d %d\n",ptr, *(ptr+4*1+2), *(ptr+4*0+5), *(ptr+2*4+2));
+
+
+
+|V
+C| 
+
+
+
+   int **ptr=m;
+   printf("%p %d %d %d\n",ptr, *(ptr+4*1+2), *(ptr+4*0+5), *(ptr+2*4+2));
+
+
+|F
+C| 
+
+
+
+   int *ptr=m;
+   printf("%p %d %d %d\n",ptr, *(ptr+4*1+2), *(ptr+4*0+5), *(ptr+2*4+2));
+
+
+
+|F
+
+
+
+Q| 
+Pour comprendre le fonctionnement des pointeurs en C, il est parfois utile de se ramener à la traduction en assembleur de fragments de code C. Considérons les lignes suivantes :
+
+
+
+   int a=1252;
+   int * ptr;
+
+   int main(int argc, const char *argv[]) {
+     ptr=&a;
+   }
+
+
+
+
+C| 
+
+
+
+
+   leal    a, %eax
+   movl    %eax, ptr
+
+
+|V
+C| 
+
+
+
+
+   movl    a, %eax
+   movl    ptr, %ecx
+   movl    %eax, (%ecx)
+
+
+|F
+C| 
+
+
+
+   movl    a, %eax
+   movl    %eax, ptr
+
+
+|F
+C| 
+
+
+
+
+   pushl   %eax
+   leal    (%esp), %eax
+   movl    a, %ecx
+   movl    %ecx, (%esp)
+   movl    %eax, ptr
+   popl    %eax
+
+
+|F
+C| 
+
+
+
+
+   leal    a, %eax
+   addl    $4, %eax
+   movl    %eax, ptr
+
+
+|F
+
+Q| 
+La fonction `pthread_create(3)` permet de créer un thread. Parmi les fragments de code ci-dessous, un seul crée correctement un thread qui appelle la fonction ``f`` en lui passant la chaîne de caractères ``s`` comme argument. Lequel ?
+
+C| 
+
+
+
+   void * f( void * param) {
+     // incomplet
+     return NULL;
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t t;
+     int err;
+     char *s;
+     err=pthread_create(&t,NULL,&(f),(void *) s);
+   }
+
+
+
+|V
+C| 
+
+
+
+   void * f (void * param) {
+     // incomplet
+     return NULL;
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t t;
+     int err;
+     char *s;
+     err=pthread_create(&t,NULL,&(f),(void *) &s);
+   }
+
+
+|F
+C| 
+
+
+
+   void f(void * param) {
+     // incomplet
+     return NULL;
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t *t;
+     int err;
+     char *s;
+     err=pthread_create(t,NULL,*f,(void *) *s);
+   }
+
+
+|F
+C| 
+
+
+
+
+   void *f(void ** param) {
+     // incomplet
+     return NULL;
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t t;
+     int err;
+     char s;
+     err=pthread_create(&t,NULL,&(f),(void *) s);
+   }
+
+
+|F
+
+Q| 
+Considérons un thread qui a pour objectif de convertir une fraction en un nombre en virgule flottante. Ce n'est pas une bonne utilisation de threads puisque le calcul à effectuer est très simple, mais cela nous permettra de voir comment un thread peut recevoir des arguments directement. En dehors des threads, cette fonction de conversion pourrait s'écrire :
+
+
+
+   struct fraction {
+     int num;
+     int denum;
+   };
+
+   typedef struct fraction Fraction_t;
+
+   float tofloat(Fraction_t t) {
+     return (float) t.num/ (float) t.denum;
+   }
+
+
+   Parmi les programmes ci-dessous, un seul calcule correctement la valeur attendue (le test des valeurs de retour des fonctions n'est pas présenté pour garder le code concis). Lequel ?
+
+
+
+C| 
+
+
+
+
+   void *mythread(void * param) {
+     Fraction_t *f=(Fraction_t *) param;
+     float *r=(float *)malloc(sizeof(float));
+     *r=(float) f->num/ (float) f->denum;
+     return((void *) r);
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t t;
+     Fraction_t f;
+     f.num=1;
+     f.denum=3;
+     float *r;
+     int err;
+
+     err=pthread_create(&t,NULL,&mythread,&(f));
+
+     err=pthread_join(t,(void **) &r);
+
+   }
+
+
+
+|V
+C| 
+
+
+
+   void *mythread(void * param) {
+     Fraction_t f= *param;
+     float r;
+     r=(float) f.num/ (float) f.denum;
+     return((void *) &r);
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t t;
+     Fraction_t f;
+     f.num=1;
+     f.denum=3;
+     float r;
+     int err;
+
+     err=pthread_create(&t,NULL,&mythread,&(f));
+
+     err=pthread_join(t,(void **) &r);
+
+   }
+
+
+|F
+C| 
+
+
+
+
+   void *mythread(void * param) {
+     Fraction_t *t=(Fraction_t *) param;
+     float *r=(float *)malloc(sizeof(float));
+     *r=(float) t->num/ (float) t->denum;
+     return((void *) r);
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t t;
+     Fraction_t f;
+     f.num=1;
+     f.denum=3;
+     float r;
+     int err;
+
+     err=pthread_create(&t,NULL,&mythread,&f);
+     r=pthread_join(t,NULL);
+
+   }
+
+
+|F
+C| 
+
+
+
+   float mythread(Fraction_t param) {
+     float *r=(float *)malloc(sizeof(float));
+     *r=(float) param->num/ (float) param->denum;
+     return(r);
+   }
+
+   int main (int argc, char *argv[])  {
+     pthread_t t;
+     Fraction_t f;
+     f.num=1;
+     f.denum=3;
+     printf("%f \n",tofloat(f));
+     float *r;
+     int err;
+
+     err=pthread_create(&t,NULL,&mythread,&(f));
+
+     err=pthread_join(t,(void *) &r);
+   }
+
+
+|F
+
+
+
+Q| 
+La fonction `pthread_create(3)` permet de créer un thread. Parmi les fragments de code ci-dessous, un seul crée correctement un thread qui appelle la fonction ``f`` en lui passant la chaîne de caractères ``s`` comme argument. Lequel ?
+
+C| 
+
+
+
+   void * f( void * param) {
+     // incomplet 
+     return NULL;
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t t;
+     int err;
+     char *s;
+     err=pthread_create(&t,NULL,&(f),(void *) s);
+   }
+
+
+
+|V
+C| 
+
+
+
+   void * f (void * param) {
+     // incomplet 
+     return NULL;
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t t;
+     int err;
+     char *s;
+     err=pthread_create(&t,NULL,&(f),(void *) &s);
+   }
+
+
+|F
+C| 
+
+
+
+   void f(void * param) {
+     // incomplet 
+     return NULL;
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t *t;
+     int err;
+     char *s;
+     err=pthread_create(t,NULL,*f,(void *) *s);
+   }
+
+
+|F
+C| 
+
+
+
+
+   void *f(void ** param) {
+     // incomplet
+     return NULL;
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t t;
+     int err;
+     char s;
+     err=pthread_create(&t,NULL,&(f),(void *) s);
+   }
+
+
+|F
+
+Q| 
+Considérons un thread qui a pour objectif de convertir une fraction en un nombre en virgule flottante. Ce n'est pas une bonne utilisation de threads puisque le calcul à effectuer est très simple, mais cela nous permettra de voir comment un thread peut recevoir des arguments directement. En dehors des threads, cette fonction de conversion pourrait s'écrire :
+
+
+
+   struct fraction {
+     int num;
+     int denum;
+   };
+
+   typedef struct fraction Fraction_t;
+
+   float tofloat(Fraction_t t) {
+     return (float) t.num/ (float) t.denum;
+   }
+
+
+   Parmi les programmes ci-dessous, un seul calcule correctement la valeur attendue (le test des valeurs de retour des fonctions n'est pas présenté pour garder le code concis). Lequel ?
+
+
+
+C| 
+
+
+
+
+   void *mythread(void * param) {
+     Fraction_t *f=(Fraction_t *) param;
+     float *r=(float *)malloc(sizeof(float));
+     *r=(float) f->num/ (float) f->denum;
+     return((void *) r);
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t t;
+     Fraction_t f;
+     f.num=1;
+     f.denum=3;
+     float *r;
+     int err;
+
+     err=pthread_create(&t,NULL,&mythread,&(f));
+
+     err=pthread_join(t,(void **) &r);
+
+   }
+
+
+
+|V
+C| 
+
+
+
+   void *mythread(void * param) {
+     Fraction_t f= *param;
+     float r;
+     r=(float) f.num/ (float) f.denum;
+     return((void *) &r);
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t t;
+     Fraction_t f;
+     f.num=1;
+     f.denum=3;
+     float r;
+     int err;
+
+     err=pthread_create(&t,NULL,&mythread,&(f));
+
+     err=pthread_join(t,(void **) &r);
+
+   }
+
+
+|F
+C| 
+
+
+
+
+   void *mythread(void * param) {
+     Fraction_t *t=(Fraction_t *) param;
+     float *r=(float *)malloc(sizeof(float));
+     *r=(float) t->num/ (float) t->denum;
+     return((void *) r);
+   }
+
+   int main (int argc, char *argv[])  {
+
+     pthread_t t;
+     Fraction_t f;
+     f.num=1;
+     f.denum=3;
+     float r;
+     int err;
+
+     err=pthread_create(&t,NULL,&mythread,&f);
+     r=pthread_join(t,NULL);
+
+   }
+
+
+|F
+C| 
+
+
+
+   float mythread(Fraction_t param) {
+     float *r=(float *)malloc(sizeof(float));
+     *r=(float) param->num/ (float) param->denum;
+     return(r);
+   }
+
+   int main (int argc, char *argv[])  {
+     pthread_t t;
+     Fraction_t f;
+     f.num=1;
+     f.denum=3;
+     printf("%f \n",tofloat(f));
+     float *r;
+     int err;
+
+     err=pthread_create(&t,NULL,&mythread,&(f));
+
+     err=pthread_join(t,(void *) &r);
+   }
+
+
+|F
+
+Q| 
+Un programme utilisant plusieurs threads doit mettre à jour une variable globale partagée entre tous les threads. Pour cela, le développeur écrit une fonction ``update`` qui prend comme arguments la variable à mettre à jour et le mutex qui y est associé. Parmi les extraits ci-dessous, lequel permet de mettre à jour la variable sans risque de contention entre les threads qui y accèdent ?
+
+C| 
+
+
+
+
+   void update(int * val, pthread_mutex_t * mutex) {
+
+     err=pthread_mutex_lock(mutex);
+     if(err!=0)
+     error(err,"pthread_mutex_lock");
+
+     // mise à jour de la variable globale
+
+     err=pthread_mutex_unlock(mutex);
+     if(err!=0)
+     error(err,"pthread_mutex_unlock");
+
+   }
+
+
+
+|V
+C| 
+
+
+
+
+   void update(int * val, pthread_mutex_t * mutex) {
+
+     err=pthread_mutex_unlock(mutex);
+     if(err!=0)
+     error(err,"pthread_mutex_unlock");
+
+     // mise à jour de la variable globale
+
+     err=pthread_mutex_lock(mutex);
+     if(err!=0)
+     error(err,"pthread_mutex_lock");
+
+   }
+
+
+|F
+C| 
+
+
+
+   void update(int val, pthread_mutex_t mutex) {
+
+     err=pthread_mutex_lock(mutex);
+     if(err!=0)
+     error(err,"pthread_mutex_lock");
+
+     // mise à jour de la variable globale
+
+     err=pthread_mutex_unlock(mutex);
+     if(err!=0)
+     error(err,"pthread_mutex_unlock");
+
+   }
+
+
+|F
+C| 
+
+
+
+   void update(int * val, pthread_mutex_t mutex) {
+
+     err=pthread_mutex_lock(&mutex);
+     if(err!=0)
+     error(err,"pthread_mutex_lock");
+
+     // mise à jour de la variable globale
+
+     err=pthread_mutex_unlock(&mutex);
+     if(err!=0)
+     error(err,"pthread_mutex_unlock");
+
+   }
+
+
+|F
+
+
+
+Q| 
+Avant d'être utilisé, un sémaphore doit être déclaré et initialisé. Après son utilisation, il doit être détruit. Parmi les séquences d'instructions ci-dessous, une seule initialise correctement un sémaphore à la valeur 1. Laquelle ?
+
+C| 
+
+
+
+   sem_t *semaphore;
+   semaphore=(sem_t *)malloc(sizeof(struct sem_t));
+   if (semaphore==NULL)
+   error("malloc");
+
+   sem_init(semaphore, 0,1);
+
+   // ...
+
+   sem_destroy(semaphore);
+
+
+
+|V
+C| 
+
+
+
+   sem_t semaphore;
+
+   sem_init(semaphore, 1,0);
+
+   // ...
+
+   sem_destroy(semaphore);
+
+
+|F
+C| 
+
+
+
+   sem_t semaphore;
+
+   sem_init(&semaphore, 1,0);
+
+   // ...
+
+   sem_destroy(&semaphore);
+
+
+|F
+C| 
+
+
+
+   sem_t *semaphore;
+   semaphore=(sem_t *)malloc(sizeof(struct sem_t));
+   if (semaphore==NULL)
+   error("malloc");
+
+   sem_init(semaphore, 1, 0);
+
+   // ...
+
+   sem_destroy(semaphore);
+
+
+|F
+C| 
+
+
+
+   sem_t *semaphore;
+   semaphore=(sem_t *)malloc(sizeof(struct sem_t));
+   if (semaphore==NULL)
+   error("malloc");
+
+   sem_init(semaphore, 1, 0);
+
+   // ...
+
+   sem_destroy(&semaphore);
+
+
+|F
+
+
+
+Q| 
+Un étudiant souhaite récupérer le résultat du processus ``pid`` qu'il a créé en faisant `fork(2)` et l'afficher sur ``stdout``. Parmi les fragments de programmes ci-dessous, un seul est correct. Lequel ?
+
+C| 
+
+
+
+
+   int status;
+   int p=waitpid(pid,&status,0);
+   if(p==-1) {
+     perror("wait");
+     exit(EXIT_FAILURE);
+   }
+   if(WIFEXITED(status)) {
+     printf("Le processus a retourne %d\n",WEXITSTATUS(status));
+   }
+
+
+
+|V
+C| 
+
+
+
+
+   int status;
+   int p=waitpid(pid,status,0);
+   if(p==-1) {
+     perror("wait");
+     exit(EXIT_FAILURE);
+   }
+   printf("Le processus a retourne %d\n",WEXITSTATUS(status));
+
+
+|F
+C| 
+
+
+
+
+   int status;
+   int p=waitpid(pid,&status,0);
+   if(p==-1) {
+     perror("wait");
+     exit(EXIT_FAILURE);
+   }
+   printf("Le processus a retourne %d\n",p);
+
+
+|F
+C| 
+
+
+
+   int *status;
+   int p=waitpid(pid,status,0);
+   if(p==-1) {
+     perror("wait");
+     exit(EXIT_FAILURE);
+   }
+   printf("Le processus a retourne %d\n",p);
+
+
+|F
+
+
+
+Q| 
+Les bits de permissions associés à un fichiers sont généralement représentés sous forme textuelle lorsque la commande `ls(1)` affiche le contenu d'un répertoire. Considérons le répertoire ci-dessous :
+
+
+
+   -rw-r--r--  1 obo  obo  0 23 mar 21:57 a
+   -rwxr-x--x  1 obo  obo  0 23 mar 21:57 b
+   -rw-------  1 obo  obo  0 23 mar 21:57 c
+   -rw------x  1 obo  obo  0 23 mar 21:57 d
+   --w-r--rw-  1 obo  obo  0 23 mar 21:57 e
+
+
+   Parmi les commandes suivantes, un seul groupe permet d'obtenir les mêmes permissions que ci-dessous. Lequel ?
+
+
+C| 
+
+
+
+
+   chmod 644 a
+   chmod 751 b
+   chmod 600 c
+   chmod 601 d
+   chmod 246 e
+
+
+|V
+C| 
+
+
+
+
+   chmod 446 a
+   chmod 157 b
+   chmod 006 c
+   chmod 106 d
+   chmod 642 e
+
+
+|F
+C| 
+
+
+
+   chmod 444 a
+   chmod 751 b
+   chmod 600 c
+   chmod 604 d
+   chmod 123 e
+
+
+|F
+C| 
+
+
+
+   chmod 322 a
+   chmod 364 b
+   chmod 300 c
+   chmod 301 d
+   chmod 123 e
+
+
+|F
+
+Q| 
+Le système de fichiers Unix utilise des `inode` pour stocker les meta-données relatives à un fichier/répertoire. Parmi les groupes d'affirmations suivants, un seul est correct. Lequel ?
+
+C| 
+
+
+- deux fichiers se trouvant dans des répertoires différents sur le même disque peuvent avoir le même `inode`
+- le champ ``nlinks`` est toujours positif
+- un accès au fichier modifie le ``atime`` associé à ce fichier
+
+
+|V
+C| 
+
+
+- deux fichiers ont toujours des `inode` différents
+- l'`inode` contient le nom du fichier
+- une écriture dans un fichier modifie le ``mtime`` associé à ce fichier
+
+|F
+C| 
+
+- un fichier et un répertoire se trouvant sur le même disque peuvent avoir le même `inode`
+- une lecture dans un fichier modifie le ``mtime`` associé à ce fichier
+- l'`inode` contient le nom du fichier
+
+|F
+C| 
+
+- une copie d'un fichier incrémente la valeur du champ ``nlinks`` de son `inode`
+- une lecture dans un fichier modifie le ``atime`` associé à ce fichier
+- il n'y a jamais deux fichiers qui ont le même `inode`
+
+|F
+
+Q| 
+Les répertoires sont des fichiers spéciaux. Pour les utiliser, il faut faire appel aux fonctions `opendir(3)`, `readdir(3)`  et `closedir(3)`. 
+
+
+
+   /*
+   * name!=NULL
+   * retourne le nombre de fichiers dans le répertoire name
+   * et -1 en cas d'erreur
+   */
+
+
+   Parmi les séquences d'instructions ci-dessous, laquelle permet de compter le nombre de fichiers se trouvant dans le répertoire courant ?
+
+
+C| 
+
+
+
+
+   int nfiles(char * name) {
+
+     DIR *dirp;
+     struct dirent *dp;
+     dp=malloc(sizeof(struct dirent));
+     if(dp==NULL) {
+       return -1;
+     }
+     dirp = opendir(name);
+     if(dirp==NULL) {
+       return -1;
+     }
+     int count=0;
+     while ((dp = readdir(dirp)) != NULL) {
+       if (dp->d_type==DT_REG) {
+         count++;
+       }
+     }
+     int err = closedir(dirp);
+     if(err<0) {
+       return -1;
+     }
+     return(count);
+   }
+
+
+|V
+C| 
+
+
+
+
+   int nfiles(char * name) {
+
+     DIR *dirp;
+     struct dirent *dp;
+     dirp = opendir(name);
+     if(dirp==NULL) {
+       return -1;
+     }
+     int count=0;
+     while (readdir(dirp) != NULL) {
+       count++;
+     }
+     int err = closedir(dirp);
+     if(err<0) {
+       return -1;
+     }
+     return(count);
+   }
+
+
+|F
+C| 
+
+
+
+   int nfiles2(char * name) {
+
+     DIR dirp;
+     struct dirent dp;
+     dirp = opendir(name);
+     if(dirp==-1) {
+       return -1;
+     }
+     int count=0;
+     while ((dp = readdir(dirp)) != -1) {
+       count++;
+     }
+
+     int err = closedir(dirp);
+     if(err<0) {
+       return -1;
+     }
+     return(count);
+   }
+
+
+|F
+C| 
+
+
+
+   int nfiles(char * name) {
+
+     DIR dirp;
+     struct dirent dp;
+     dirp = opendir(name);
+     int count=0;
+     while ((dp = readdir(dirp)) != NULL) {
+       if (dp->d_type==DT_REG) {
+         count++;
+       }
+     }
+     int err = closedir(dirp);
+     if(err<0) {
+       return -1;
+     }
+     return(count);
+   }
+
+
+|F
+
+
+
