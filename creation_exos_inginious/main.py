@@ -33,7 +33,7 @@ def build_qcm(filename, filename_dest=None, one_file_per_question=False, with_mu
             qcm.save(filename_dest, mode)
         else:
             qcm.saveTxt(filename_dest, mode, with_multiple_choice=with_multiple_choice, with_choice_comment=with_choice_comment)
-        print("QCM : \"" + nom + "\" correctement créé dans",filename_dest,"!")
+        print('QCM : "{}" (de {}) correctement créé dans {} !'.format(nom, filename, filename_dest))
     else:
         for qst in questions:
             qcm.clear_question()
@@ -49,7 +49,7 @@ def build_qcm(filename, filename_dest=None, one_file_per_question=False, with_mu
                 qcm.save(filename_dest)
             else:
                 qcm.saveTxt(filename_dest, with_multiple_choice=with_multiple_choice, with_choice_comment=with_choice_comment)
-            print("Question : \"" + qst.nom + "\" correctement créée dans",filename_dest,"!")
+            print('Question : "{}" (de {}) correctement créée dans {} !'.format(qst.nom, filename, filename_dest))
     return True
     
 if __name__ == '__main__':

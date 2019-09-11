@@ -1,5 +1,7 @@
 from utils import *
 
+_fake_balises = []
+
 class Balise(object):
     def __init__(self, texte=[]):
         self.texte = texte
@@ -23,8 +25,12 @@ class Balise(object):
             else: langage = ligne[-1]
             return BaliseCode(langage, [])
         else:
-            print("Balise non reconnue :",ligne)
-            return None
+            nom_balise = ligne.split("::")[0].split("..")[1]
+            nom_balise = "..{}::".format(nom_balise)
+            if nom_balise not in _fake_balises:
+                _fake_balises.append(nom_balise)
+                print("Balise non reconnue (son contenu ne sera pas ajouté au document) : {}".format(nom_balise))
+            return FakeBalise([])
     get_balise = staticmethod(get_balise)
     
     def filtre(liste_lignes):
@@ -39,15 +45,25 @@ class Balise(object):
                 liste_retour.append(ligne)
             else:
                 _, indent, tab = format_string(ligne, get_indent=True, remove_indent=False, count_tab=True)
-                if ligne == "" or balise.isEmpty() or indent != indentation_balise or tab != tab_balise:
+                if balise.isEmpty() or (ligne == "" and balise.texte[-1] != "") or (indent > indentation_balise and tab >= tab_balise):
                     balise.add_texte(ligne)
                 else:
-                    print("Stop balise :",ligne, indentation_balise, indent)
-                    liste_retour.append(balise)
+                    if type(balise) is not FakeBalise:
+                        liste_retour.append(balise)
                     balise = None
-        if balise is not None: liste_retour.append(balise)
+                    liste_retour.append(ligne)
+        if balise is not None:
+            if type(balise) is not FakeBalise:
+                liste_retour.append(balise)
         return liste_retour
     filtre = staticmethod(filtre)
+        
+class FakeBalise(Balise):
+    def __init__(self, texte=[]):
+        self.texte = texte
+        
+    def add_texte(self, texte):
+        self.texte.append(texte)
         
 class BaliseCode(Balise):
     def __init__(self, langage, texte=[]):
@@ -58,7 +74,7 @@ class BaliseCode(Balise):
         self.texte.append(texte)
 
     def toString(self, indentation, with_balise_descriptor=True):
-        print(self.texte)
+        #print(self.texte)
         if with_balise_descriptor:
             texte = "\n" + get_indent(indentation) + ".. code-block:: " + self.langage + "\n"
         else:

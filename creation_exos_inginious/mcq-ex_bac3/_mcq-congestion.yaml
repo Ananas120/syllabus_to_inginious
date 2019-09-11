@@ -1,0 +1,173 @@
+accessible: True
+author: 
+context: |
+    **************************
+    TCP and congestion control
+    **************************
+    Unless otherwise noted, we assume for the exercices in this section that the following conditions hold.
+    Congestion control
+    ------------------
+environment: mcq
+evaluate: best
+groups: False
+input_random: 0
+limits:
+    output: 2
+    memory: 100
+    time: 30
+name: icwnd
+network_grading: False
+problems:
+    ss-ca:
+        name: ss-ca
+        header: |
+            1. The congestion control scheme in a TCP implementation can operate in slow-start or in congestion avoidance mode. For this, the implementation compares the current value of the congestion window with the slow-start threshold. 
+            
+            
+            Among the TCP states shown below, which is the one that corresponds to a connection operating in congestion avoidance ? 
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                cwnd=64000 and ssthresh=64000
+                
+            valid: True
+            feedback: |
+            text: |
+                cwnd=4000 and  ssthresh=2000
+                
+            valid: True
+            feedback: |
+            text: |
+                cwnd=4000 and  ssthresh=48000 
+                
+            valid: False
+            feedback: |
+                A TCP connection operates in congestion avoidance when its congestion window is larger or equal than the slow-start threshold 
+                
+            text: |
+                cwnd=2000 and  ssthresh=4000 
+                
+            valid: False
+            feedback: |
+                A TCP connection operates in congestion avoidance when its congestion window is larger or equal than the slow-start threshold 
+                
+            text: |
+                cwnd=4000 and  ssthresh=8000 
+                
+            valid: False
+            feedback: |
+                A TCP connection operates in congestion avoidance when its congestion window is larger or equal than the slow-start threshold 
+                
+                
+                
+    tcpto:
+        name: tcpto
+        header: |
+            2. A TCP has been active for some time and reached a congestion window of 8000 bytes (its initial value was 1000 bytes). At this point, there is no unacknowledged data and the application running on the sender tries to send 2000 bytes of data.
+            
+            
+            
+            None of these two segments reaches the receiver. Which of the graphs below corresponds to a correct reaction of the TCP stack running on the sender ?
+            
+        limit: None
+        multiple: False
+        type: multiple_choice
+        choices:
+            text: |
+                
+                
+            valid: False
+            feedback: |
+                When the retransmission timer expires, the congestion window is reset to its initial value (1000 bytes here) and the slow-start threshold is set to half the value reached by the congestion window. 
+                
+                
+            text: |
+                
+                
+            valid: False
+            feedback: |
+                When the retransmission timer expires, the congestion window is reset to its initial value (1000 bytes here) and the slow-start threshold is set to half the value reached by the congestion window. 
+                
+                
+            text: |
+                
+                
+            valid: False
+            feedback: |
+                When the retransmission timer expires, the congestion window is reset to its initial value (1000 bytes here) and the slow-start threshold is set to half the value reached by the congestion window. 
+                
+                
+            text: |
+                
+                
+                
+                
+                
+                
+            valid: True
+            feedback: |
+    tcpfrr:
+        name: tcpfrr
+        header: |
+            3. A TCP connection has been active for some time and has reached a congestion window of 4000 bytes. Four segments are sent, but the second (shown in red in the figure) is corrupted. 
+            
+            
+            What is the new state of the TCP connection upon reception of the acknowledgements for the first, third and fourth segments ?
+            
+        limit: None
+        multiple: False
+        type: multiple_choice
+        choices:
+            text: |
+                
+                
+                - Upon reception of the first acknowledgement, ``cwnd`` is set to 4250 bytes and ``ssthresh`` is unchanged 
+                - Upon reception of the third acknowledgement, ``cwnd`` and ``ssthresh`` are unchanged 
+                - Upon reception of the fourth acknowledgement, ``cwnd`` and ``ssthresh`` are unchanged
+                
+            valid: True
+            feedback: |
+            text: |
+                
+                
+                - Upon reception of the first acknowledgement, ``cwnd`` is set to 4250 bytes and ``ssthresh`` is unchanged 
+                - Upon reception of the third acknowledgement, ``cwnd`` is set to 2225 bytes and ``ssthresh`` is set to 2000 bytes  
+                - Upon reception of the fourth acknowledgement, ``cwnd`` and ``ssthresh`` are unchanged
+                
+            valid: False
+            feedback: |
+                Given the initial values for ``cwnd`` and ``ssthresh``, this connection operates in congestion avoidance mode. The first acknowledgement increases the congestion window since it acknowledges new data. The third acknowledgement does not acknowledged new data. The congestion window cannot increase due to the reception of this acknowledgement. Furthermore, a single duplicate acknowledgement is not sufficient to detect a loss segment and trigger a fast retransmit.
+                
+            text: |
+                
+                
+                
+                - Upon reception of the first acknowledgement, ``cwnd`` is set to 5000 bytes and ``ssthresh`` is unchanged 
+                - Upon reception of the third acknowledgement, ``cwnd`` is set to 6000 bytes and ``ssthresh`` is unchanged 
+                - Upon reception of the fourth acknowledgement, ``cwnd`` is set to 7000 bytes and ``ssthresh`` is unchanged 
+                
+            valid: False
+            feedback: |
+                Given the initial values for ``cwnd`` and ``ssthresh``, this connection operates in congestion avoidance mode. The first acknowledgement increases the congestion window since it acknowledges new data, but not the two others. 
+                
+            text: |
+                
+                
+                - Upon reception of the first acknowledgement, ``cwnd`` is set to 4250 bytes and ``ssthresh`` is unchanged 
+                - Upon reception of the third acknowledgement, ``cwnd`` is set to 4485 bytes and ``ssthresh`` is unchanged 
+                - Upon reception of the fourth acknowledgement, ``cwnd`` is set to 4707 bytes and ``ssthresh`` is unchanged 
+                
+            valid: False
+            feedback: |
+                Given the initial values for ``cwnd`` and ``ssthresh``, this connection operates in congestion avoidance mode. The first acknowledgement increases the congestion window since it acknowledges new data, but not the two others.
+                
+                
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+tags:
+weight: 1.0

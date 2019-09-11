@@ -1,0 +1,173 @@
+accessible: True
+author: 
+context: |
+    ******************
+    Building a network
+    ******************
+    Multiple choice questions
+    =========================
+    Building forwarding tables
+    --------------------------
+    The forwarding paths used in a network depend on the forwarding tables installed in the network nodes. Consider the network shown below with the forwarding tables.
+    The forwarding paths used in a network depend on the forwarding tables installed in the network nodes. Sometimes, these forwarding tables must be configured manually. 
+    The forwarding paths used in a network depend on the forwarding tables installed in the network nodes. Sometimes, these forwarding tables are configured manually and an incorrect configuration may cause some paths to be impossible. 
+environment: mcq
+evaluate: best
+groups: False
+input_random: 0
+limits:
+    output: 2
+    memory: 100
+    time: 30
+name: networkftable
+network_grading: False
+problems:
+    ftable1:
+        name: ftable1
+        header: |
+            In this network, only one of the affirmations about the forwarding paths is correct. Which one ?
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                The path from `A` to `B` is `R1->R2->R3`
+                
+            valid: True
+            feedback: |
+            text: |
+                The path from `B` to `A` is `R3->R1`
+                
+            valid: True
+            feedback: |
+            text: |
+                The path from `B` to `A` is `R3->R2->R1`
+                
+            valid: False
+            feedback: |
+            text: |
+                The path from `A` to `B` is `R1->R3`
+                
+                
+                
+                
+                
+            valid: False
+            feedback: |
+    ftableAdd:
+        name: ftableAdd
+        header: |
+            The forwarding paths used in a network depend on the forwarding tables installed in the network nodes. Sometimes, these forwarding tables must be configured manually. 
+            
+            
+            In this network, which of the forwarding tables below ensures that both :
+            
+            - `A` and `B` can exchange packets in both directions 
+            - the path from `A` to `B` is the reverse of the path from `B` to `A` 
+            
+        limit: None
+        multiple: False
+        type: multiple_choice
+        choices:
+            text: |
+                New forwarding table for `R3`:
+                
+                ====== =====
+                Dest.  Port 
+                ====== =====
+                A      N 
+                B      N-E 
+                ====== =====
+                
+                New forwarding table for `R2`:
+                
+                ====== =====
+                Dest.  Port 
+                ====== =====
+                A      S-W 
+                B      S 
+                ====== =====
+                
+            valid: True
+            feedback: |
+            text: |
+                New forwarding table for `R3`:
+                
+                ====== =====
+                Dest.  Port 
+                ====== =====
+                A      N-E 
+                B      N-E 
+                ====== =====
+                
+                New forwarding table for `R1`:
+                
+                ====== =====
+                Dest.  Port 
+                ====== =====
+                A      S-W 
+                B      S 
+                ====== =====
+                
+            valid: False
+            feedback: |
+                There is a forwarding loop with this forwarding table. `B` cannot reach `A` because the packets that it sends loop on the `R2-R3` link. 
+                
+                
+            text: |
+                New forwarding table for `R3`:
+                
+                ====== =====
+                Dest.  Port 
+                ====== =====
+                A      N 
+                B      N-E 
+                ====== =====
+                
+                New forwarding table for `R2`:
+                
+                ====== =====
+                Dest.  Port 
+                ====== =====
+                A      E 
+                B      S-W 
+                ====== =====
+                
+            valid: False
+            feedback: |
+                There is a forwarding loop with this forwarding table. `A` cannot reach `B` because the packets that it sends loop on the `R2-R3` link. 
+                
+                
+            text: |
+                New forwarding table for `R3`:
+                
+                ====== =====
+                Dest.  Port 
+                ====== =====
+                A      N 
+                B      E 
+                ====== =====
+                
+                New forwarding table for `R2`:
+                
+                ====== =====
+                Dest.  Port 
+                ====== =====
+                A      E 
+                B      S 
+                ====== =====
+                
+            valid: False
+            feedback: |
+                The path from `A` to `B` is not the reverse of the path from `B` to `A` with these forwarding tables.
+                
+                
+                
+                
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+tags:
+weight: 1.0

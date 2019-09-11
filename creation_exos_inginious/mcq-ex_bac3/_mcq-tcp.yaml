@@ -1,0 +1,798 @@
+accessible: True
+author: 
+context: |
+    *****************
+    Reliable transfer
+    *****************
+    Framing techniques
+    ------------------
+environment: mcq
+evaluate: best
+groups: False
+input_random: 0
+limits:
+    output: 2
+    memory: 100
+    time: 30
+name: reliable
+network_grading: False
+problems:
+    bitstuffing:
+        name: bitstuffing
+        header: |
+            1. *Bit stuffing*. Consider a simple protocol that uses 16 bits frames. Bit stuffing can be used to recover the frames from a string of bits. The table below shows an original frame (before bit stuffing) and a transmitted frame (after having applied bit stuffing). Only one of the lines below corresponds to a valid utilisation of bit stuffing (the frame boundary marker is 01111110). Which one ? 
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                
+                
+                ================  ================================
+                Before stuffing   After stuffing
+                ================  ================================
+                0001001010000110  01111110000100101000011001111110
+                ================  ================================
+                
+            valid: True
+            feedback: |
+            text: |
+                
+                
+                ===============================  ========================================================
+                Before stuffing                  After stuffing
+                ===============================  ========================================================
+                1111110110111100110101101110101  01111110111110101101111000111111011010110111010101111110
+                ===============================  ========================================================
+                
+            valid: True
+            feedback: |
+            text: |
+                
+                
+                ================ ================================
+                Before stuffing  After stuffing
+                ================ ================================
+                0111111000101010 01111110011111100010101001111110
+                ================ ================================
+                
+            valid: False
+            feedback: |
+            text: |
+                
+                
+                ================ ================
+                Before stuffing   After stuffing
+                ================ ================
+                0111111001111110 0111111001111110
+                ================ ================
+                
+            valid: False
+            feedback: |
+            text: |
+                
+                
+                ================================================ =========================================================================
+                Before stuffing                                  After stuffing
+                ================================================ =========================================================================
+                011111100010101001111001010101011011011101010110 0111111001111101000101010011111100111100101010101011111101011011101010110
+                ================================================ =========================================================================
+                
+                
+                
+                
+                
+                
+                
+                
+            valid: False
+            feedback: |
+    charstuffing:
+        name: charstuffing
+        header: |
+            2. *Character stuffing* is another framing technique. It uses the `DLE`, `STX` and `ETX` characters. The table below shows original (before stuffing) and transmitted frames (after stuffing). Only one of the proposed answers is valid. Which one ? 
+            
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                
+                
+                =========================    =====================================================
+                Before stuffing              After stuffing
+                =========================    =====================================================
+                DLE STX 1 2 3 DLE DLE ETX    DLE STX DLE DLE STX 1 2 3 DLE DLE DLE DLE ETX DLE ETX
+                =========================    =====================================================
+                
+            valid: True
+            feedback: |
+            text: |
+                
+                
+                ================  ================================================
+                Before stuffing   After stuffing
+                ================  ================================================
+                DLE DLE DLE DLE   DLE STX DLE DLE DLE DLE DLE DLE DLE DLE DLE ETX 
+                ================  ================================================
+                
+            valid: True
+            feedback: |
+            text: |
+                
+                
+                =================== ===================================
+                Before stuffing     After stuffing
+                =================== ===================================
+                1 2 3 4 DLE DLE 7 8 STX 1 2 3 4 DLE DLE DLE DLE 7 8 ETX
+                =================== ===================================
+                
+            valid: False
+            feedback: |
+            text: |
+                
+                
+                ================ =======================
+                Before stuffing  After stuffing
+                ================ =======================
+                DLE STX DLE ETX  DLE STX DLE DLE ETX
+                ================ =======================
+                
+            valid: False
+            feedback: |
+            text: |
+                
+                
+                =========================================== =========================================================================
+                Before stuffing                             After stuffing
+                =========================================== =========================================================================
+                DLE A Z R STX DLE ETX ETX DLE 1 1 1 1 0 0 4 DLE STX DLE DLE A Z R DLE STX DLE DLE ETX ETX DLE 1 1 1 1 0 0 4 DLE ETX
+                =========================================== =========================================================================
+                
+                
+                
+            valid: False
+            feedback: |
+    errodetection:
+        name: errodetection
+        header: |
+            Error detection and correction
+            ------------------------------
+            
+            
+            1. For this question, we assume 16-bits blocks. For each sequence of 3 blocks, we compute a parity block where each parity bit of this block refers to the bits occupying the same position in the 3 previous blocks. The parity block can be used as an error detection scheme. 
+            
+            Among the examples below, only one corresponds to a valid parity block. Which one (assuming that the parity block has been computed by using XOR of the corresponding bits) ?
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                
+                
+
+                .. code-block:: text
+
+                   1010111011110101
+                   1110101010101011 
+                   1111111011111111  
+                   1011101010100001 => parity block
+
+
+            valid: True
+            feedback: |
+            text: |
+                
+                
+
+                .. code-block:: text
+
+                   1010111011110101
+                   1110101010101011 
+                   1111111011111111  
+                   0100010101011110 => parity block
+
+
+            valid: True
+            feedback: |
+            text: |
+                
+                
+
+                .. code-block:: text
+
+                   1010101011111001
+                   0101110110011011
+                   1010111011111010
+                   1111111111111111 => parity block
+
+
+            valid: False
+            feedback: |
+            text: |
+                
+                
+
+                .. code-block:: text
+
+                   1010111011110101
+                   1110101010101011 
+                   1111111011111111  
+                   1011101001011110 => parity block
+
+                
+            valid: False
+            feedback: |
+            text: |
+                
+                
+
+                .. code-block:: text
+
+                   1011101111&10111
+                   1001011101010101
+                   1010000011111111
+                   1010000011111111 => parity block
+
+
+                
+            valid: False
+            feedback: |
+            text: |
+                
+                
+
+                .. code-block:: text
+
+                   1011101001100111
+                   1010101010010101
+                   1001010111111111
+                   1011101001100111 => parity block
+
+
+                
+                
+            valid: False
+            feedback: |
+    errorcorrection:
+        name: errorcorrection
+        header: |
+            2. Parity blocks can also be used to recover from transmission errors. For this question, we assume that one parity block has been computed for 4 blocks and one of the block was discarded due to transmission errors. 
+            
+
+            .. code-block:: text
+
+               1001011010100101
+               0001000111001000
+               0101001011101001
+               ................ =>missing block
+               1001100110011010 =>parity block
+
+
+            
+            Only one of the blocks below is a recovered block. Which one ?
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                
+                
+
+                .. code-block:: text
+
+                   0100110000011110
+
+
+            valid: True
+            feedback: |
+            text: |
+                
+                
+
+                .. code-block:: text
+
+                   1011001111100001
+
+
+                
+            valid: True
+            feedback: |
+            text: |
+                
+                
+
+                .. code-block:: text
+
+                   1011001100011110
+
+
+            valid: False
+            feedback: |
+            text: |
+                
+                
+
+                .. code-block:: text
+
+                   0100110001100001
+
+
+            valid: False
+            feedback: |
+            text: |
+                
+                
+
+                .. code-block:: text
+
+                   1001011010100101
+
+
+            valid: False
+            feedback: |
+            text: |
+                
+                
+
+                .. code-block:: text
+
+                   0100111000011110
+
+
+                
+                
+            valid: False
+            feedback: |
+    abp0:
+        name: abp0
+        header: |
+            Alternating Bit Protocol
+            ------------------------
+            
+            
+            1. After having correctly transmitted several frames, a host sends a data frame that is correctly acknowledged. This corresponds to the situation shown in the figure below :
+            
+            
+            At this stage, which of the following affirmations are correct (select all of them) ?
+            
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                If the right host receives `D(1,y)`, it will ignore the frame and reply with `C(OK1)`.  
+                
+            valid: True
+            feedback: |
+            text: |
+                If the left host receives `C(OK,0)`, it will retransmit the frame `D(1,y)`. 
+                
+            valid: True
+            feedback: |
+            text: |
+                If the right host receives `D(1,y)`, it will ignore the frame and reply with `C(OK0)`. 
+                
+            valid: False
+            feedback: |
+            text: |
+                If the right host receives `D(0,y)`, it will ignore the frame and reply with `C(OK1)`. 
+                
+            valid: False
+            feedback: |
+            text: |
+                If the right host receives `D(0,y)`, it will accept the frame and reply with `C(OK0)`. 
+                
+                
+                
+            valid: True
+            feedback: |
+    abp1:
+        name: abp1
+        header: |
+            2. Consider a host on the left that needs to transmit 2 bytes of data to the host on right. Among the following time sequence diagrams, which is the one that corresponds to a successful transmission of these two bytes ?
+            
+        limit: None
+        multiple: False
+        type: multiple_choice
+        choices:
+            text: |
+                
+                
+            valid: True
+            feedback: |
+                
+                
+                This example is correct. It could correspond to a scenario where the host on the left sent some data until it reached sequence number 0 and then become idle before sending data `y`.
+                
+                
+            text: |
+                
+                
+            valid: False
+            feedback: |
+                
+                
+                This scenario is incorrect. The same sequence number is used incorrectly to send `x` and `y`.
+                
+            text: |
+                
+                
+            valid: False
+            feedback: |
+                
+                
+                This scenario is incorrect. The host on the right should not send `C(OK1)` after having received `D(0,x)`
+                
+                
+                
+    abp2:
+        name: abp2
+        header: |
+            3. Sometimes, a host needs to send the same information twice. Consider a host that sends `d` followed by `d`. What is the correct time sequence diagram for this scenario ? 
+            
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                
+                
+            valid: True
+            feedback: |
+                
+                
+                This example is correct. 
+                
+            text: |
+                
+                
+            valid: True
+            feedback: |
+                
+                
+                This example is correct. 
+                
+                
+            text: |
+                
+                
+            valid: False
+            feedback: |
+                
+                
+                This example is incorrect. The second frame is a retransmission for the host on the right since it carries the same sequence number. It should never delivery the data to its user.
+                
+            text: |
+                
+                
+            valid: False
+            feedback: |
+                
+                
+                This example is incorrect. The second frame is a retransmission for the host on the right since it carries the same sequence number. It should never delivery the data to its user.
+                
+            text: |
+                
+                
+            valid: False
+            feedback: |
+                
+                
+                This example is incorrect. The acknowledgements sent by the host on the right are incorrect. When receiving `D(1,d)` and accepting it since it issues a `Data.ind(d)`, it should not send `C(OK0)` but instead `C(OK1)`.
+                
+                
+                
+                
+                
+                
+    gbn0:
+        name: gbn0
+        header: |
+            Go-back-N
+            ---------
+            
+            
+            
+            
+            1. The diagram below shows the operation of a go-back-n protocol.      
+            
+            What is the size of the window (measured in frames) ?
+            
+        limit: None
+        multiple: False
+        type: multiple_choice
+        choices:
+            text: |
+                3
+                
+            valid: True
+            feedback: |
+                Correct
+                
+            text: |
+                2
+                
+            valid: False
+            feedback: |
+                With a window of two frames, the sending host would have to wait for the acknowledgements after having sent the second frame.  This is not the case in the diagram.
+                
+            text: |
+                1
+                
+            valid: False
+            feedback: |
+                With a window of one frame, the sending host would have to wait for the acknowledgements after having sent the first frame. This is not the case in the diagram.
+                
+            text: |
+                We cannot know from this diagram.
+                
+                
+                
+                
+                
+            valid: False
+            feedback: |
+    gbn2:
+        name: gbn2
+        header: |
+            2. You implement a Go-back-n sender and observe the following frames that you send/receive. Assume that you use a window of three frames. 
+            
+            
+            
+            Which affirmation is correct among the ones below :
+            
+        limit: None
+        multiple: False
+        type: multiple_choice
+        choices:
+            text: |
+                The receiver has correctly received the three frames that you have sent, but one acknowledgement has been lost. 
+                
+            valid: False
+            feedback: |
+                If this was the case, then you would have received `C(OK,2)` as the last acknowledgement. 
+                
+            text: |
+                The receiver has only received the first frame that you have sent. It has neither received the second nor the third frame. 
+                
+            valid: False
+            feedback: |
+                In this case, then the receiver should have never sent a second acknowledgement since it only sends acknowledgements when receiving data frames. 
+                
+            text: |
+                The receiver has correctly received the first and the third frame that your have sent. The second frame has been lost and should be retransmitted. 
+                
+            valid: False
+            feedback: |
+            text: |
+                
+                
+                The receiver has correctly received the first two frames. The third frame and the second acknowledgements have been lost. 
+                
+                
+                
+            valid: True
+            feedback: |
+    gbn3:
+        name: gbn3
+        header: |
+            3. You implement a Go-back-n sender and observe the following sequence of frames. Assuming that you have a window of three segments. 
+            
+            
+            Among the following affirmations, only one is correct. Which one ?
+            
+        limit: None
+        multiple: False
+        type: multiple_choice
+        choices:
+            text: |
+                After having received `C(OK,1)`, you know that the first two frames have been received correctly. Since you never received an acknowledgement for the third frame, you will retransmit it after the expiration of the associated retransmission timer. 
+                
+            valid: True
+            feedback: |
+            text: |
+                The first three frames have been received correctly. Upon reception of `C(OK,1)`, you can immediately transmit the next data frame, i.e. `D(3,d)`. 
+                
+            valid: False
+            feedback: |
+                If the first three frames would have been received correctly, you would have received `C(OK,2)`. When you receive `C(OK,2)`, you only know that the first two frames have been received correctly. 
+                
+            text: |
+                After having received `C(OK,1)`, you know that the first two frames have been received correctly. You retransmit immediately the frame `D(2,c)` that has not been received correctly. 
+                
+            valid: False
+            feedback: |
+                You cannot immediately infer than the third frame (or the corresponding acknowledgement) has been lost. You will retransmit `D(2,c)` only after the expiration of the retransmission timer.         
+                
+            text: |
+                Since you never received `C(OK,0)`, there was something wrong in the transmission of the first frame. You retransmit all frames upon expiration of your retransmission timer. 
+                
+            valid: False
+            feedback: |
+                Since you received `C(OK,1)`, you *know* that the first two frames have been received correctly. 
+                
+            text: |
+                Since you never received `C(OK,0)`, there was something wrong in the transmission of the first frame. You retransmit this frame immediately after having received `C(OK,1)`. 
+                
+            valid: False
+            feedback: |
+                Since you received `C(OK,1)`, you *know* that the first two frames have been received correctly. 
+                
+                
+                
+    gbn4:
+        name: gbn4
+        header: |
+            4. You implement a go-back-n receiver and receive the following frames. 
+            
+            
+            How do you respond to the reception of the frame `D(2,b)` ?
+            
+        limit: None
+        multiple: False
+        type: multiple_choice
+        choices:
+            text: |
+                You ignore the out-of-sequence frame and respond with `C(OK,0)`. 
+                
+            valid: True
+            feedback: |
+            text: |
+                You place the frame in your buffer and respond with `C(OK,2)`. 
+                
+            valid: False
+            feedback: |
+                Since the frame is out-of-sequence, a go-back-n receiver would ignore it. Furthermore, sending `C(OK,2)` indicates that all frames, up to and including sequence number `2` have been received in sequence.           
+                
+            text: |
+                You issue a `Data.ind(b)` to deliver the information to your user and respond with `C(OK,2)`. 
+                
+            valid: False
+            feedback: |
+                The frame is out of sequence. It cannot be delivered to the user. Furthermore, sending `C(OK,2)` indicates that all frames, up to and including sequence number `2` have been received in sequence.                     
+                
+            text: |
+                You ignore the out-of-sequence frame and do not respond. 
+                
+            valid: False
+            feedback: |
+                As a go-back-n receiver, you should respond with an acknowledgement to each received frame. 
+                
+            text: |
+                You ignore the out-of-sequence frame and respond with `C(OK,1)`. 
+                
+            valid: False
+            feedback: |
+                By sending `C(OK,1)`, you indicate that the second frame has been received correctly, which is not the case. 
+                
+                
+                
+                
+                
+    sr2:
+        name: sr2
+        header: |
+            Selective repeat
+            ----------------
+            
+            
+            
+            
+            1. You implement a Selective-repeat sender and observe the following frames that you send/receive. Assume that you use a window of three frames. 
+            
+            
+            
+            Which affirmation is correct among the ones below :
+            
+        limit: None
+        multiple: False
+        type: multiple_choice
+        choices:
+            text: |
+                
+                
+                The receiver has correctly received the three frames that you have sent, but one acknowledgement has been lost. No retransmission is needed.
+                
+            valid: False
+            feedback: |
+                If this was the case, then you would have received `C(OK,3)` as the last acknowledgement. 
+                
+            text: |
+                
+                
+                The receiver has only received the first frame that you have sent. It has neither received the second nor the third frame. You plan to retransmit only the second frame.
+                
+            valid: False
+            feedback: |
+                In this case, then the receiver should have never sent a second acknowledgement since it only sends acknowledgements when receiving data frames. 
+                
+            text: |
+                
+                
+                The frames containing `a` and `c` have been received correctly. The second frame (containing `b`) has not been received. 
+                
+            valid: False
+            feedback: |
+            text: |
+                
+                
+                The frames containing `a` and `b` have been received correctly. The third frame (containing `c`) has not been received.
+                
+                
+                
+                
+            valid: True
+            feedback: |
+    sr4:
+        name: sr4
+        header: |
+            2. You implement a selective repeat receiver and receive the following frames. 
+            
+            
+            How do you respond to the reception of the frame `D(3,b)` ?
+            
+        limit: None
+        multiple: False
+        type: multiple_choice
+        choices:
+            text: |
+                You ignore the out-of-sequence frame and respond with `C(OK,1)`. 
+                
+            valid: False
+            feedback: |
+                A selective repeat receiver should store the out-of-sequence frames inside its receive buffer.
+                
+            text: |
+                You place the frame in your buffer and respond with `C(OK,3)`. 
+                
+            valid: False
+            feedback: |
+                Placing the out-of-sequence frame inside the buffer is correct. Unfortunately, sending `C(OK,3)` indicates that all frames, up to and including sequence number `3` have been received in sequence.           
+                
+            text: |
+                You place the frame in your buffer and respond with `C(OK,1)`. 
+                
+            valid: True
+            feedback: |
+                Placing the out-of-sequence frame inside the buffer is correct. 
+                
+            text: |
+                You issue a `Data.ind(b)` to deliver the information to your user and respond with `C(OK,2)`. 
+                
+            valid: False
+            feedback: |
+                The frame is out of sequence. It cannot be delivered to the user. Furthermore, sending `C(OK,2)` indicates that all frames, up to and including sequence number `2` have been received in sequence.                     
+                
+            text: |
+                You ignore the out-of-sequence frame and do not respond. 
+                
+            valid: False
+            feedback: |
+                As a selective repeat receiver, you should respond with an acknowledgement to each received frame and store the out-of-sequence frames that you receive.
+                
+            text: |
+                You ignore the out-of-sequence frame and respond with `C(OK,2)`. 
+                
+            valid: False
+            feedback: |
+                By sending `C(OK,1)`, you indicate that the second frame has been received correctly, which is not the case. As a selective repeat receiver, you should respond with an acknowledgement to each received frame and store the out-of-sequence frames that you receive.
+                
+                
+                
+                
+                
+                
+                
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+tags:
+weight: 1.0

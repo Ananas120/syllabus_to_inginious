@@ -33,16 +33,20 @@ def split_questions(texte_document, forme):
         hasChoix = False
         hasName = False
         for ligne in lignes:
+            #print(ligne, len(questions))
             if ".. positive::" in ligne or ".. negative::" in ligne:
                 hasChoix = True
             if ".. question::" in ligne:
-                if hasName:
+                if len(questions) == 0:
+                    questions += [texte_question]
+                    texte_question = ""
+                elif hasName:
                     questions += [texte_question]
                     texte_question = ""
                     hasChoix = False
                 else:
                     hasName = True
-            if "1." in ligne:
+            if "1." in ligne and len(questions) == 0:
                 questions.append(texte_question)
                 texte_question = ""
             if get_indentation(ligne) == 0 and hasChoix and ligne != '':
@@ -93,7 +97,7 @@ def get_questions_from_rst_format2(texte, forme=2):
         lignes_question = question.split("\n")
         choices = get_choices_from_rst_format2(lignes_question)
         infos_new_question = {'name':"", 'header':[]}
-        
+
         for ligne in lignes_question[:]:
             if ".. positive::" in ligne or ".. negative::" in ligne:
                 break
@@ -184,8 +188,8 @@ def get_choices_from_rst_format2(lignes_question):
     
 def get_qcm_name_from_rst(texte):
     for ligne in texte.split("\n"):
-        if len(ligne) > 3 and ".." not in ligne and get_indentation(ligne) == 0:
-            return ligne
+        if ':task_id:' in ligne:
+            return ligne.split(":")[-1][1:]
 
 def get_qcm_context_from_rst(texte):
     context = []

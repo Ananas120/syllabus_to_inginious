@@ -1,0 +1,205 @@
+accessible: True
+author: 
+context: |
+    Routing protocols
+    -----------------
+environment: mcq
+evaluate: best
+groups: False
+input_random: 0
+limits:
+    output: 2
+    memory: 100
+    time: 30
+name: networkrouting
+network_grading: False
+problems:
+    dv1:
+        name: dv1
+        header: |
+            1. Consider the network represented in the figure below. Assume that the
+            network is using a distance vector protocol as its routing protocol.
+            When the network boots, which of the following distance vectors
+            correspond to the first vector
+            that each router sends ? We assume that the link weights are configured on
+            the routers as shown in the figure. We consider a basic version of
+            distance routing without split horizon and without poisoning. What
+            are all the correct distance vectors among the choices below ?
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                Router `R1` sends `[ R1=0, R2=1, R3=1]`
+                
+            valid: False
+            feedback: |
+                When a distance vector router boots, it only knows itself at a distance of `0`.
+                
+            text: |
+                Router `R2` sends `[ R2=0, R1=1, R3=3, R4=1]`
+                
+            valid: False
+            feedback: |
+                When a distance vector router boots, it only knows itself at a distance of `0`.
+                
+            text: |
+                Router `R3` sends `[ R3=0, R1=1, R2=3]`
+                
+            valid: False
+            feedback: |
+                When a distance vector router boots, it only knows itself at a distance of `0`.
+                
+            text: |
+                Router `R4` sends `[ R4=0, R2=1, R3=3, R4=1]`
+                
+            valid: False
+            feedback: |
+                When a distance vector router boots, it only knows itself at a distance of `0`.
+                
+            text: |
+                Router `R4` sends `[ R4=0 ]`
+                
+            valid: True
+            feedback: |
+            text: |
+                Router `R3` sends `[ R3=0 ]`
+                
+            valid: True
+            feedback: |
+            text: |
+                Router `R2` sends `[ R2=0 ]`
+                
+            valid: True
+            feedback: |
+            text: |
+                Router `R1` sends `[ R1=0 ]`
+                
+                
+                
+            valid: True
+            feedback: |
+    dv2:
+        name: dv2
+        header: |
+            2. Consider the same network as in the previous question. The network has been running for several hours. Among the following answers, what are the distance vectors that are produced by the routers at that time ?
+            
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                Router `R1` sends `[ R1=0, R2=1, R3=1]`
+                
+            valid: False
+            feedback: |
+                A router always sends a summary of its routing table. After several hours, `R1` already knows how to reach `R4`.
+                
+            text: |
+                Router `R2` sends `[ R2=0, R1=1, R3=2, R4=1]`
+                
+            valid: True
+            feedback: |
+            text: |
+                Router `R3` sends `[ R3=0, R1=1, R2=3]`
+                
+            valid: False
+            feedback: |
+                A router always sends a summary of its routing table. After several hours, `R3` already knows how to reach `R4`.
+                
+            text: |
+                Router `R4` sends `[ R4=0, R2=1, R3=3, R1=2]`
+                
+            valid: True
+            feedback: |
+            text: |
+                Router `R4` sends `[ R4=0 ]`
+                
+            valid: False
+            feedback: |
+                A router always sends a summary of its entire routing table. This is not the case here.
+                
+            text: |
+                Router `R3` sends `[ R3=0 ]`
+                
+            valid: False
+            feedback: |
+                A router always sends a summary of its entire routing table. This is not the case here.
+                
+            text: |
+                Router `R2` sends `[ R2=0 ]`
+                
+            valid: False
+            feedback: |
+                A router always sends a summary of its entire routing table. This is not the case here.
+                
+            text: |
+                Router `R1` sends `[ R1=0 ]`
+                
+            valid: False
+            feedback: |
+                A router always sends a summary of its entire routing table. This is not the case here.
+                
+                
+                
+    ls1:
+        name: ls1
+        header: |
+            3. Consider the network shown in the figure below.
+            
+            Among the link state packets shown below, which corresponds to link state packets that could be transmitted by the nodes of this network ? Select all the valid answers.
+            
+            
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                Router `R1` sends LSP : `R1-0 [R2:1] [R3:1] [R4:1]`
+                
+            valid: True
+            feedback: |
+            text: |
+                Router `R2` sends LSP : `R2-0 [R1:1] [R3:3] [R4:1]`
+                
+            valid: True
+            feedback: |
+            text: |
+                Router `R3` sends LSP : `R3-0 [R1:1] [R2:3]`
+                
+            valid: True
+            feedback: |
+            text: |
+                Router `R4` sends LSP : `R4-0 [R1:1] [R2:1]`
+                
+            valid: True
+            feedback: |
+            text: |
+                Router `R3` sends LSP : `R3-0 [R1:1] [R2:3] [R4:3]`
+                
+            valid: False
+            feedback: |
+                The link state packet contains the information about the direct neighbours of a network node. `R3` is not directly attached to `R4`.
+                
+            text: |
+                Router `R4` sends LSP : `R4-0 [R1:1] [R2:1] [R3:3]`
+                
+            valid: False
+            feedback: |
+                The link state packet contains the information about the direct neighbours of a network node. `R4` is not directly attached to `R3`.
+                
+                
+                
+                
+                
+                
+                
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+tags:
+weight: 1.0

@@ -1,0 +1,23 @@
+accessible: True
+author: 
+context: |
+    Port forwarding tables
+    ----------------------
+    Port forwarding tables are used in tree-shaped networks to automatically build the forwarding tables that allow the network nodes to forward packets towards their destinations.
+environment: mcq
+evaluate: best
+groups: False
+input_random: 0
+limits:
+    output: 2
+    memory: 100
+    time: 30
+name: networkpftable
+network_grading: False
+problems:
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+tags:
+weight: 1.0

@@ -1,0 +1,408 @@
+accessible: True
+author: 
+context: |
+    The Border Gateway Protocol
+    ===========================
+    Multiple choice questions
+    -------------------------
+environment: mcq
+evaluate: best
+groups: False
+input_random: 0
+limits:
+    output: 2
+    memory: 100
+    time: 30
+name: mcqbgp
+network_grading: False
+problems:
+    bgpdc:
+        name: bgpdc
+        header: |
+            1. The BGP decision process is the process that is used by a BGP router to select the best path among all the paths learned towards a given destination prefix. The table below represents all the BGP routes learned by a BGP router and their corresponding attributes. For simplicity, the nexthops are indicated as router names instead of IP addresses.
+            
+            ================  ===========    ==========    =======
+            prefix            AS Path        local-pref    nexthop
+            ----------------  -----------    ----------    -------
+            2001:db8:1/48     AS1:AS4        100           R1 
+            2001:db8:1/48     AS1:AS3:AS4    200           R2 
+            2001:db8:1/48     AS1:AS4        100           R3 
+            2001:db8:1/48     AS4            150           R4
+            2001:db8:2/48     AS1:AS4        100           R1 
+            2001:db8:2/48     AS1:AS3:AS4    100           R2 
+            2001:db8:2/48     AS1:AS4        100           R3 
+            2001:db8:2/48     AS4            150           R4
+            2001:db8:0/47     AS1:AS4        200           R1 
+            2001:db8:0/47     AS1:AS3:AS4    200           R2 
+            2001:db8:0/47     AS1:AS4        100           R3 
+            2001:db8:0/47     AS4            150           R4
+            2001:db8:0/48     AS1:AS4        100           R1 
+            2001:db8:0/48     AS1:AS3:AS4    100           R2 
+            2001:db8:0/48     AS1:AS4        150           R3 
+            2001:db8:0/48     AS4            150           R4
+            ================  ===========    ==========    =======
+            
+            
+            Assuming that the router above belongs to ``AS5``, select all the routes that it will advertise to an hypothetical router that belongs to ``AS9``.
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                The router will advertise a route towards ``2001:db8:1/48`` with the ``AS5:AS1:AS3:AS4`` AS Path.
+                
+            valid: True
+            feedback: |
+            text: |
+                The router will advertise a route towards ``2001:db8:2/48`` with the ``AS5:AS4`` AS Path.
+                
+            valid: True
+            feedback: |
+            text: |
+                The router will advertise a route towards ``2001:db8:0/47`` with the ``AS5:AS1:AS4`` AS Path.
+                
+            valid: True
+            feedback: |
+            text: |
+                The router will advertise a route towards ``2001:db8:0/48`` with the ``AS5:AS4`` AS Path.
+                
+                
+            valid: True
+            feedback: |
+            text: |
+                The router will advertise a route towards ``2001:db8:1/48`` with the ``AS5:AS4`` AS Path.
+                
+            valid: False
+            feedback: |
+                In the BGP Decision process, a route with a higher local preference is always preferred over a route with a lower preference.
+                
+            text: |
+                The router will advertise a route towards ``2001:db8:0/47`` with the ``AS5:AS4`` AS Path.
+                
+            valid: False
+            feedback: |
+                In the BGP Decision process, a route with a higher local preference is always preferred over a route with a lower preference.
+                
+            text: |
+                The router will advertise a route towards ``2001:db8:0/48`` with the ``AS5:AS1:AS4`` AS Path.
+            valid: False
+            feedback: |
+                In the BGP Decision process, a route with a shorter AS Path is always preferred over a route with a longer AS Path.
+                
+                
+                
+                
+    bgpdc2:
+        name: bgpdc2
+        header: |
+            2. Consider the BGP routing table shown in the previous question and consider the forwarding of IP packets.
+            
+            
+            Among all the affirmations below, select all the correct ones.
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                The router will forward a packet whose destination is ``2001:db8:1::1`` via ``R2``
+                
+            valid: True
+            feedback: |
+            text: |
+                The router will forward a packet whose destination is ``2001:db8:0::1`` via ``R4``
+                
+            valid: True
+            feedback: |
+            text: |
+                The router will forward a packet whose destination is ``2001:db8:2::1`` via ``R4``
+                
+            valid: True
+            feedback: |
+            text: |
+                The router will forward a packet whose destination is ``2001:db8:1::1`` via ``R1``
+                
+            valid: False
+            feedback: |
+            text: |
+                The router will forward a packet whose destination is ``2001:db8:0::1`` via ``R1``
+                
+            valid: False
+            feedback: |
+            text: |
+                The router will forward a packet whose destination is ``2001:db8:2::1`` via ``R1``
+                
+            valid: False
+            feedback: |
+            text: |
+                The router will forward a packet whose destination is ``2001:db8:1::1`` via ``R3``
+                
+            valid: False
+            feedback: |
+            text: |
+                The router will forward a packet whose destination is ``2001:db8:0::1`` via ``R3``
+                
+            valid: False
+            feedback: |
+            text: |
+                The router will forward a packet whose destination is ``2001:db8:2::1`` via ``R3``
+                
+            valid: False
+            feedback: |
+            text: |
+                The router will forward a packet whose destination is ``2001:db8:1::1`` via ``R4``
+                
+            valid: False
+            feedback: |
+            text: |
+                The router will forward a packet whose destination is ``2001:db8:0::1`` via ``R2``
+                
+                
+            valid: False
+            feedback: |
+    bgpdc4:
+        name: bgpdc4
+        header: |
+            3. Consider a router that belongs to ``AS8`` and is connected to ``AS9``. The BGP routes that it has received are the following ones. This router is connected to four different ASes : ``AS1`` (on router ``R1``), ``AS5`` (on router ``R2``), ``AS6`` (on router ``R3``)  and ``AS4`` (on router ``R4``). We assume that the same local-pref is used for all routes received from a given peer.
+            
+            ================  ===========    ==========    ========
+            prefix            AS Path        local-pref    nexthop
+            ----------------  -----------    ----------    --------
+            2001:db8:2/48     AS1:AS4        50            R1 (AS1)
+            2001:db8:2/48     AS5:AS3:AS4    100           R2 (AS5)
+            2001:db8:2/48     AS6:AS4        100           R3 (AS6)
+            2001:db8:2/48     AS4            100           R4 (AS4)
+            ================  ===========    ==========    ========
+            
+            
+            Select in the list below all the correct affirmations about the reaction of this router to the reception of a BGP message from one of its peers. We assume that ``AS9`` is a client of ``AS8`` and thus it receives all the routes learned by ``AS9``.
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                If a Withdraw message for prefix ``2001:db8:2/48`` is received from ``AS1``, then no message is sent to ``AS8``.
+                
+            valid: True
+            feedback: |
+            text: |
+                If a Withdraw message for prefix ``2001:db8:2/48`` is received from ``AS5``, then no message is sent to ``AS8``.
+                
+            valid: True
+            feedback: |
+            text: |
+                If a Withdraw message for prefix ``2001:db8:2/48`` is received from ``AS6``, then no message is sent to ``AS8``.
+                
+            valid: True
+            feedback: |
+            text: |
+                If a Withdraw message for prefix ``2001:db8:2/48`` is received from ``AS1``, then a Withdraw message is sent for this prefix to ``AS8``.
+                
+            valid: False
+            feedback: |
+                The best route towards ``2001:db8:2/48`` does not change upon reception of the Withdraw message for this prefix from ``AS1``. ``AS8`` still has a route towards ``2001:db8:2/48``.
+                
+            text: |
+                If a Withdraw message for prefix ``2001:db8:2/48`` is received from ``AS4``, then the router will send an Update message for prefix ``2001:db8:2/48`` with ``AS8:AS6:AS4`` as AS Path.
+                
+                
+                
+            valid: True
+            feedback: |
+    bgpdc3:
+        name: bgpdc3
+        header: |
+            4. Consider now a router that belongs to ``AS8`` and is connected to ``AS9``. The BGP routes that it has received are the following ones. This router is connected to four different ASes : ``AS1`` (on router ``R1``), ``AS5`` (on router ``R2``), ``AS6`` (on router ``R3``)  and ``AS4`` (on router ``R4``). We assume that the same local-pref is used for all routes received from a given peer.
+            
+            ================  ===========    ==========    =======
+            prefix            AS Path        local-pref    nexthop
+            ----------------  -----------    ----------    -------
+            2001:db8:1/48     AS1:AS1:AS4    100           R1 (AS1)
+            2001:db8:1/48     AS5:AS3:AS4    200           R2 (AS5)
+            2001:db8:1/48     AS6:AS4        100           R3 (AS6)
+            2001:db8:1/48     AS4            150           R4 (AS4)
+            ================  ===========    ==========    =======
+            
+            
+            
+            Consider the routes that this router advertises to ``AS9``. Assuming that there are no routing policies (i.e. the router advertises all its best routes), select all the correct affirmations about the reaction of the router to the reception of BGP messages from one of its peers.
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                If the router receives a Withdraw for prefix ``2001:db8:1/48`` from ``R1``, it does not send any BGP message to ``AS9``.
+                
+            valid: True
+            feedback: |
+            text: |
+                If the router receives a Withdraw for prefix ``2001:db8:1/48`` from ``R3``, it does not send any BGP message to ``AS9``.
+                
+            valid: True
+            feedback: |
+            text: |
+                If the router receives a Withdraw for prefix ``2001:db8:1/48`` from ``R4``, it does not send any BGP message to ``AS9``.
+                
+            valid: True
+            feedback: |
+            text: |
+                If the router receives a Withdraw for prefix ``2001:db8:1/48`` from ``R2``, it sends an Update to ``AS9`` that advertises this prefix via the ``AS6:AS4`` path.
+                
+            valid: True
+            feedback: |
+            text: |
+                If the router receives an Update for prefix ``2001:db8:1/48`` from ``R2`` with AS Path ``AS5:AS7:AS8:AS4``, it sends an Update for this prefix with AS Path ``AS8:AS5:AS7:AS8:AS4``.
+                
+            valid: True
+            feedback: |
+            text: |
+                If the router receives an Update for prefix ``2001:db8:1/48`` from ``R2`` with AS Path ``AS5:AS7:AS8:AS4``, it sends a Withdraw for this prefix to ``AS9``.
+                
+            valid: False
+            feedback: |
+                The best path towards prefix ``2001:db8:1/48`` on this router is the path learned from ``AS5`` since it has the highest local-pref. If this path changes, the updated path must be advertised to ``AS9``.
+                
+            text: |
+                If the router receives an Update for prefix ``2001:db8:1/48`` from ``R1`` with AS Path ``AS1:AS4``, it sends an Update for this prefix with AS Path ``AS5:AS1:AS4`` to ``AS9``.
+                
+            valid: False
+            feedback: |
+                The best path towards prefix ``2001:db8:1/48`` on this router is the path learned from ``AS5`` since it has the highest local-pref. This best path does not change and thus the router does not send any message to ``AS9``.
+                
+            text: |
+                If the router receives an Update for prefix ``2001:db8:1/48`` from ``R3`` with AS Path ``AS6:AS4``, it sends an Update for this prefix with AS Path ``AS5:AS6:AS4`` to ``AS9``.
+                
+            valid: False
+            feedback: |
+                The best path towards prefix ``2001:db8:1/48`` on this router is the path learned from ``AS5`` since it has the highest local-pref. This best path does not change and thus the router does not send any message to ``AS9``.
+                
+                
+                
+                
+    bgp1:
+        name: bgp1
+        header: |
+            5. In the small Internet shown below, ``AS4`` announces one prefix : ``2001:db8:4/48``.
+            
+            
+            
+            Assuming that all the links are up and the network has converged, select all the correct affirmations about the state of the BGP routing tables. Assume that there are no routing policies in this Internet. 
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                The BGP routing table of ``AS3`` contains only one path towards prefix ``2001:db8:4/48``. It's AS-Path is ``AS4``. 
+                
+            valid: True
+            feedback: |
+            text: |
+                The BGP routing table of ``AS5`` contains only one path towards prefix ``2001:db8:4/48``. It's AS-Path is ``AS2:AS3:AS4``. 
+                
+            valid: True
+            feedback: |
+            text: |
+                The BGP routing table of ``AS5`` contains only one path towards prefix ``2001:db8:4/48``. It's AS-Path is ``AS2:AS1:AS3:AS4``. 
+                
+            valid: False
+            feedback: |
+                A BGP router always prefers the path with the shortest AS-Path. ``AS2`` has learned two paths for prefix ``2001:db8:4/48`` : ``AS3:AS4`` and ``AS1:AS3:AS4``. ``AS2`` will use the path ``AS3:AS4`` and advertise it to ``AS5``. 
+                
+            text: |
+                The BGP routing table of ``AS5`` contains two paths towards prefix ``2001:db8:4/48`` :  ``AS2:AS1:AS3:AS4`` and ``AS2:AS3:AS4``. ``AS5`` prefers and uses the path ``AS2:AS3:AS4``. 
+                
+            valid: False
+            feedback: |
+                ``AS5`` only learns one path from ``AS2`` : ``AS2:AS3:AS4``. It never learns the path ``AS2:AS1:AS3:AS4``
+                
+            text: |
+                The BGP routing table of ``AS2`` contains two paths towards prefix ``2001:db8:4/48`` :  ``AS1:AS3:AS4`` and ``AS3:AS4``. ``AS2`` prefers and uses the path ``AS3:AS4``. 
+                
+            valid: True
+            feedback: |
+            text: |
+                The BGP routing table of ``AS2`` contains only one path towards prefix ``2001:db8:4/48`` :  ``AS1:AS3:AS4``. 
+                
+            valid: False
+            feedback: |
+                ``AS2`` learns two paths for this prefix, one from ``AS1`` and the other from ``AS3``. 
+                
+            text: |
+                The BGP routing table of ``AS2`` contains only one path towards prefix ``2001:db8:4/48`` :  ``AS3:AS4``. 
+                
+            valid: False
+            feedback: |
+                ``AS2`` learns two paths for this prefix, one from ``AS1`` and the other from ``AS3``. 
+                
+                
+                
+    bgp2:
+        name: bgp2
+        header: |
+            6. Consider the same Internet as above, but now assume that ``AS2`` has configured its import filters to attach a higher local-preference to the routes received from ``AS1``. ``AS4`` announces one prefix : ``2001:db8:4/48``.
+            
+            
+            
+            Assuming that all the links are up and the network has converged, select all the correct affirmations about the state of the BGP routing tables. Assume that there are no routing policies in this Internet. 
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                The BGP routing table of ``AS3`` contains only one path towards prefix ``2001:db8:4/48``. It's AS-Path is ``AS4``. 
+                
+            valid: True
+            feedback: |
+            text: |
+                The BGP routing table of ``AS5`` contains only one path towards prefix ``2001:db8:4/48``. It's AS-Path is ``AS2:AS1:AS3:AS4``. 
+                
+            valid: True
+            feedback: |
+            text: |
+                The BGP routing table of ``AS5`` contains only one path towards prefix ``2001:db8:4/48``. It's AS-Path is ``AS2:AS3:AS4``. 
+                
+            valid: False
+            feedback: |
+                ``AS2`` has learned two paths for prefix ``2001:db8:4/48`` : ``AS3:AS4`` and ``AS1:AS3:AS4``. The second path is longer but has a highest local-preference. ``AS2`` will use it and advertise it to ``AS5``. 
+                
+            text: |
+                The BGP routing table of ``AS5`` contains two paths towards prefix ``2001:db8:4/48`` :  ``AS2:AS1:AS3:AS4`` and ``AS2:AS3:AS4``. ``AS5`` prefers and uses the path ``AS2:AS3:AS4``. 
+                
+            valid: False
+            feedback: |
+                ``AS5`` only learns one path from ``AS2`` : ``AS2:AS1:AS3:AS4``. It never learns the path ``AS2:AS3:AS4``
+                
+            text: |
+                The BGP routing table of ``AS2`` contains two paths towards prefix ``2001:db8:4/48`` :  ``AS1:AS3:AS4`` and ``AS3:AS4``. ``AS2`` prefers and uses the path ``AS1:AS3:AS4``. 
+                
+            valid: True
+            feedback: |
+            text: |
+                The BGP routing table of ``AS2`` contains only one path towards prefix ``2001:db8:4/48`` :  ``AS1:AS3:AS4``. 
+                
+            valid: False
+            feedback: |
+                ``AS2`` learns two paths for this prefix, one from ``AS1`` and the other from ``AS3``. 
+                
+            text: |
+                The BGP routing table of ``AS2`` contains only one path towards prefix ``2001:db8:4/48`` :  ``AS3:AS4``. 
+                
+            valid: False
+            feedback: |
+                ``AS2`` learns two paths for this prefix, one from ``AS1`` and the other from ``AS3``. 
+                
+                
+                
+                
+                
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+tags:
+weight: 1.0

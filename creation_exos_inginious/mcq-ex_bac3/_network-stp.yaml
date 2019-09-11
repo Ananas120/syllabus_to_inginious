@@ -1,0 +1,366 @@
+accessible: True
+author: 
+context: |
+    Ethernet networks
+    =================
+environment: mcq
+evaluate: best
+groups: False
+input_random: 0
+limits:
+    output: 2
+    memory: 100
+    time: 30
+name: spanningtree
+network_grading: False
+problems:
+    stp1:
+        name: stp1
+        header: |
+            1. With the 802.1d protocol, Ethernet switches exchange BPDUs that contain four informations :
+            
+            - the `Root identifier` 
+            - the `Cost` to reach the root
+            - the `Transmitter identifier`
+            
+            The third information contains two parts : the identifier of the switch that sent the BPDU and the identifier of the port where the BPDU has been sent. Each switch uses a unique identifier for each of its ports. 
+            
+            
+            Select among the list below *all* the BPDUs that are better than ``[R=123,C=17,T=15.4]``
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                ``[R=123,C=11,T=16.9]``
+                
+            valid: True
+            feedback: |
+                The two BPDUs have the same Root, but this BPDU has a lower cost.
+                
+            text: |
+                ``[R=122,C=21,T=19]``
+                
+            valid: True
+            feedback: |
+                This BPDU has a smaller root. 
+                
+            text: |
+                ``[R=123,C=17,T=15.1]``
+                
+            valid: True
+            feedback: |
+                The two BPDUs have the same Root, the same cost but this BPDU has a lower Transmitter identifier.
+                
+            text: |
+                ``[R=123,C=17,T=12.19]``
+                
+            valid: True
+            feedback: |
+                The two BPDUs have the same Root, the same cost but this BPDU has a lower Transmitter identifier.
+                
+            text: |
+                ``[R=126,C=11,T=6.9]``
+                
+            valid: False
+            feedback: |
+                This BPDU has a smaller root identifier.
+                
+            text: |
+                ``[R=123,C=21,T=19]``
+                
+            valid: False
+            feedback: |
+                This BPDU has the same root, but a higher cost.
+                
+            text: |
+                ``[R=123,C=17,T=25.1]``
+                
+            valid: False
+            feedback: |
+                The two BPDUs have the same Root, the same cost but this BPDU has a  higher Transmitter identifier.
+                
+            text: |
+                ``[R=123,C=17,T=22.19]``
+                
+            valid: False
+            feedback: |
+                The two BPDUs have the same Root, the same cost but this BPDU has a larger Transmitter identifier.
+                
+                
+    stp2:
+        name: stp2
+        header: |
+            2. Consider a large Ethernet network that contains the switches shown in the figure below.
+            
+            
+            Switch ``32`` has received the following BPDUs from its neighbours :
+            
+            - ``[R=9,C=21,T=19.2]``
+            - ``[R=9,C=12,T=42.1]``
+            - ``[R=25,C=5,T=25.2]``
+            - ``[R=9,C=5,T=46.3]``
+            
+            
+            Which is the ``BPDU`` of switch ``32`` assuming that all links have a cost of ``1`` ?
+            
+        limit: None
+        multiple: False
+        type: multiple_choice
+        choices:
+            text: |
+                ``[R=9,C=6,T=32]``
+                
+            valid: True
+            feedback: |
+            text: |
+                ``[R=25,C=6,T=25]``
+                
+            valid: False
+            feedback: |
+                The root of this network cannot be switch ``25``.
+                
+            text: |
+                ``[R=9,C=6,T=25]``
+                
+            valid: False
+            feedback: |
+                The BPDU of a switch has the switch has its transmitting identifier. 
+                
+            text: |
+                ``[R=9,C=6,T=19.32]``
+                
+            valid: False
+            feedback: |
+                The BPDU of a switch has the switch has its transmitting identifier. 
+                
+            text: |
+                ``[R=9,C=5,T=32]``
+                
+            valid: False
+            feedback: |
+                The cost towards the root must be incremented with the cost of the link over which the BPDU has been received.
+                
+                
+                
+    stp3:
+        name: stp3
+        header: |
+            3. Consider the same network as above. Assume now that switch ``32`` has received the following BPDUs from its neighbours :
+            
+            - ``[R=9,C=6,T=19.2]``
+            - ``[R=9,C=12,T=42.1]``
+            - ``[R=9,C=5,T=25.2]``
+            - ``[R=9,C=5,T=46.3]``
+            
+            .. BPDU : ``[R=9,C=6,T=32]`` best is 25
+            
+            
+            Which of the following affirmations about the state of the ports of switch ``32`` is correct ? 
+            
+        limit: None
+        multiple: False
+        type: multiple_choice
+        choices:
+            text: |
+                The port towards switch ``25`` is the `root port` of the switch and the ports towards switches ``42``, ``19`` and ``46`` are `blocked`. 
+                
+            valid: True
+            feedback: |
+            text: |
+                The port towards switch ``25`` is the `root port` of the switch. The ports towards switch ``19`` is `blocked` and the ports towards switches ``42`` and ``46`` are `designated`. 
+                
+            valid: False
+            feedback: |
+            text: |
+                The port towards switch ``19`` is the `root port` of the switch. The ports towards switch ``46`` is `blocked` and the ports towards switches ``42`` and ``25`` are `designated`. 
+                
+            valid: False
+            feedback: |
+            text: |
+                The port towards switch ``25`` is the `root port` of the switch. The ports towards switches ``46``, ``42`` and ``25`` are `designated`. 
+                
+                
+                
+            valid: False
+            feedback: |
+    stp4:
+        name: stp4
+        header: |
+            4. Consider the switched network shown in the figure below.
+            
+            
+            \path[draw,thick]
+            (S3) edge (S6) 
+            (S3) edge (S7) 
+            (S6) edge (S4) 
+            (S4) edge (S7)
+            (S3) edge (S9)
+            (S9) edge (S7)
+            (S3) edge (S7); 
+            
+            
+            
+            Assuming that all the links have a cost of ``1``, which switch will become the root of the spanning tree ?
+            
+        limit: None
+        multiple: False
+        type: multiple_choice
+        choices:
+            text: |
+                Switch ``3`` becomes the root of the spanning tree. 
+                
+            valid: True
+            feedback: |
+            text: |
+                Switch ``6`` becomes the root of the spanning tree. 
+                
+            valid: False
+            feedback: |
+            text: |
+                Switch ``7`` becomes the root of the spanning tree. 
+                
+            valid: False
+            feedback: |
+            text: |
+                Switch ``9`` becomes the root of the spanning tree. 
+                
+            valid: False
+            feedback: |
+            text: |
+                Switch ``4`` becomes the root of the spanning tree. 
+                
+                
+                
+            valid: False
+            feedback: |
+    stp5:
+        name: stp5
+        header: |
+            5. Consider the same network as in the above question. 
+            
+            
+            Select *all* the valid affirmations about the state of the ports of the different switches.
+            
+        limit: None
+        multiple: True
+        type: multiple_choice
+        choices:
+            text: |
+                The port of ``S3`` that leads to ``S6`` is in the designated state.
+                
+            valid: True
+            feedback: |
+                All the ports of the root switch are in the designated state.
+                
+            text: |
+                The port of ``S3`` that leads to ``S9`` is in the designated state.  
+                
+            valid: True
+            feedback: |
+                All the ports of the root switch are in the designated state.  
+                
+            text: |
+                The port of ``S3`` that leads to ``S7`` is in the designated state. 
+                
+            valid: True
+            feedback: |
+                All the ports of the root switch are in the designated state. 
+                
+            text: |
+                The port of ``S6`` that leads to ``S3`` is a root port.
+                
+            valid: True
+            feedback: |
+            text: |
+                The port of ``S9`` that leads to ``S3`` is a root port.
+                
+            valid: True
+            feedback: |
+            text: |
+                The port of ``S7`` that leads to ``S3`` is a root port.
+                
+            valid: True
+            feedback: |
+            text: |
+                The port of ``S6`` that leads to ``S4`` is in the designated state. 
+                
+            valid: True
+            feedback: |
+            text: |
+                The port of ``S7`` that leads to ``S4`` is in the designated state. 
+                
+            valid: True
+            feedback: |
+            text: |
+                The port of ``S7`` that leads to ``S9`` is in the designated state. 
+                
+            valid: True
+            feedback: |
+            text: |
+                The port of ``S4`` that leads to ``S6`` is in the blocked state. 
+                
+            valid: True
+            feedback: |
+            text: |
+                The port of ``S4`` that leads to ``S7`` is in the blocked state. 
+                
+            valid: True
+            feedback: |
+            text: |
+                The port of ``S9`` that leads to ``S7`` is in the blocked state.
+                
+                
+            valid: True
+            feedback: |
+            text: |
+                The port of ``S6`` that leads to ``S4`` is in the blocked state. 
+                
+            valid: False
+            feedback: |
+                This port is a designated port. The BPDU of switch ``S6`` is better than the BPDU of switch ``S4``.
+                
+            text: |
+                The port of ``S7`` that leads to ``S4`` is in the blocked state. 
+                
+            valid: False
+            feedback: |
+                This port is a designated port. The BPDU of switch ``S7`` is better than the BPDU of switch ``S4``.
+                
+            text: |
+                The port of ``S7`` that leads to ``S9`` is in the blocked state. 
+                
+            valid: False
+            feedback: |
+                The BPDU of switch ``S7`` is better than the BPDU of switch ``S9``.
+                
+            text: |
+                The port of ``S4`` that leads to ``S6`` is in the designated state. 
+                
+            valid: False
+            feedback: |
+                The BPDU of switch ``S4`` is worse than the BPDU of switch ``S6``.
+                
+            text: |
+                The port of ``S4`` that leads to ``S7`` is in the designated state. 
+                
+            valid: False
+            feedback: |
+                The BPDU of switch ``S4`` is worse than the BPDU of switch ``S7``.
+                
+            text: |
+                The port of ``S9`` that leads to ``S7`` is in the designated state.
+                
+            valid: False
+            feedback: |
+                The BPDU of switch ``S9`` is worse than the BPDU of switch ``S7``.
+                
+                
+                
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+tags:
+weight: 1.0
